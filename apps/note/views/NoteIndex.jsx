@@ -1,7 +1,8 @@
 
-const { useState, useEffect } = React
+const { useState, useEffect, Fragment } = React
 
 import { NoteList } from '../cmps/NoteList.jsx'
+import { AddNote } from '../cmps/AddNote.jsx'
 import { noteService } from '../services/note.service.js'
 
 export function NoteIndex() {
@@ -52,16 +53,20 @@ export function NoteIndex() {
         ev.stopPropagation()
         note.isPinned = !note.isPinned ? true : false
         noteService.save(note)
-        .then(loadNotes)
-        .catch(console.error)
+            .then(loadNotes)
+            .catch(console.error)
     }
 
     if (!notes) return <div>loading...</div>
     return (
-        <div className='content-layout'>
-            
-            <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} />
-            <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} />
-        </div>
+        <main className='main-notes main-notes-layout'>
+            <div>
+                <AddNote />
+            </div>
+            <div className='content-layout'>
+                <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} />
+                <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} />
+            </div>
+        </main>
     )
 }

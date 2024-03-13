@@ -1,0 +1,21 @@
+.add-note-container {
+    display: grid;
+    place-items: center;
+}
+
+.add-note {
+    height: 100%;
+    width: 600px;
+    display: grid;
+    grid-template-rows: repeat(3,44px);
+    place-items: center;
+    /* border: 1px solid #e0e0e0; */
+    border-radius: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.add-note input {
+    width: 600px;
+    border: none;
+    height: 44px;
+}
