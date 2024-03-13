@@ -18,10 +18,19 @@ export function NoteIndex() {
             .catch(console.error)
     }
 
+    function onRemoveNote(noteId) {
+        noteService.remove(noteId)
+            .then(() => {
+                setNotes((prevNotes) => prevNotes.filter(note => note.id !== noteId))
+                showSuccessMsg(`note removed successfully${noteId}`)
+            })
+            .catch(console.error)
+    }
+
     if (!notes) return <div>loading...</div>
     return (
         <div className='content-layout'>
-            <NoteList notes={notes}/>
+            <NoteList notes={notes} onRemoveNote={onRemoveNote}/>
         </div>
     )
 }

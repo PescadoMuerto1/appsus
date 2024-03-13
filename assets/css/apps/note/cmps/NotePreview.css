@@ -1,12 +1,16 @@
-.note-preview {
-    width: 350px;
+.note-card {
+    position: relative;
     border: 0.5px solid grey;
     border-radius: 1rem;
     break-inside: avoid-column;
     margin-block-end: 1rem;
 }
 
-.note-preview :first-child{
+.note-preview {
+   
+}
+
+.note-preview :first-child {
     top: 0;
 }
 
@@ -28,4 +32,22 @@
 .note-preview .note-todos-list {
     padding: 0.8rem 1rem;
     font-size: 1.5rem;
+}
+
+.note-actions {
+    display: grid;
+    grid-auto-flow: column;
+    place-items: center;
+}
+
+.note-actions li {
+    height: 34px;
+    width: 34px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+.note-actions i {
+    font-size: 1.4rem;
 }
