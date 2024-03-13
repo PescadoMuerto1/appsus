@@ -1,4 +1,4 @@
-export function MailPreview({ mail }) {
+export function MailPreview({ mail, on }) {
     const previewLength = 60
 
     const unreadClass = mail.isRead ? '' : 'unread'

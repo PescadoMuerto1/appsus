@@ -1,4 +1,5 @@
 const { useState, useEffect } = React
+const { useNavigate, useParams } = ReactRouter
 const { Link } = ReactRouterDOM
 
 import { MailList } from "../cmps/MailList.jsx";
@@ -6,7 +7,8 @@ import { mailService } from "../services/mail.service.js";
 
 export function MailIndex() {
     const [mails, setMails] = useState(null)
-
+    const navigate = useNavigate()
+    
     useEffect(() => {
         loadMails()
     }, [])
@@ -20,8 +22,8 @@ export function MailIndex() {
             .catch(err => console.log('err:', err))
     }
 
-    function onDeleteMail(mailToDelete) {
-
+    function onDeleteMail(ev, mailToDelete) {
+        ev.stopPropagation()
         if (mailToDelete.removedAt) {
             mailService.remove(mailToDelete.id)
                 .then(mail => {
@@ -40,17 +42,16 @@ export function MailIndex() {
                 })
                 .catch(err => console.log('err:', err))
         }
-
     }
 
     function onMailSelect(mail) {
-        console.log('slected');
-        // if (!mail.isRead) {
-        //     mail.isRead = true
-        //     mailService.save(mail)
-        //         .then(mail => console.log('mail:', mail))
-        //         .catch(err => console.log('err:', err))
-        // }
+        if (!mail.isRead) {
+            mail.isRead = true
+            mailService.save(mail)
+                .then(mail => console.log('selected mail:', mail))
+                .catch(err => console.log('err:', err))
+        }
+        navigate(`/mail/${mail.id}`)
     }
 
     if (!mails) return <div>loading...</div>
