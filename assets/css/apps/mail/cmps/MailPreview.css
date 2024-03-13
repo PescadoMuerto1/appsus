@@ -1,0 +1,7 @@
+.mail-list .mail-body {
+    font-size: 0.875rem;
+}
+
+.unread {
+    font-weight: bold;
+}
