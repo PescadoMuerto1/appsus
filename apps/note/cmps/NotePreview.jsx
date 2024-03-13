@@ -8,7 +8,7 @@ export function NotePreview({ note }) {
             {note.title && <h2>{note.title}</h2>}
             {note.text && <p>{note.text}</p>}
             {note.todos &&
-                <ul className='note-todos-list'>
+                <ul className='note-todos-list clean-list'>
                     {note.todos.map(todo => 
                         <NoteTodo todo={todo}/>
                     )}
