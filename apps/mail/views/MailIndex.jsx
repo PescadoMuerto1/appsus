@@ -57,7 +57,6 @@ export function MailIndex() {
 
     return <Fragment>
         <MailSideBar />
-        {/* <Outlet /> */}
         <section className="mail-index">
             { !mails && <div>loading...</div> }
             { mails && <MailList mails={ mails } onDeleteMail={ onDeleteMail } onMailSelect={ onMailSelect } /> }

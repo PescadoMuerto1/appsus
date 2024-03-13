@@ -58,16 +58,16 @@ function save(mail) {
     }
 }
 
-function getEmptyMail(title = '', price = 50) {
+function getEmptyMail() {
     return {
         id: '',
-        title,
-        subtitle: '',
-        authors: [''],
-        publishedDate: 1900,
-        pageCount: 0,
-        listPrice: { amount: price, currencyCode: 'ILS', isOnSale: false },
-        thumbnail: 'assets/imgs/default-mail.png'
+        subject: '',
+        body: '',
+        isRead: false,
+        sentAt: null,
+        removedAt: null,
+        from: loggedinUser.mail,
+        to: ''
     }
 }
 
