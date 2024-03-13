@@ -11,14 +11,16 @@ import { NoteIndex } from "./apps/note/views/NoteIndex.jsx"
 
 export function App() {
     return <Router>
-        <section className="app">
+        <section className="app main-layout">
             <AppHeader />
+            <main className="main-content">
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/mail" element={<MailIndex />} />
                 <Route path="/note" element={<NoteIndex />} />
             </Routes>
+            </main>
         </section>
     </Router>
 }

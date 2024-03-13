@@ -7,3 +7,8 @@
 .note-layout {
     display: grid;
 }
+
+.main-content {
+    padding: 1em;
+    margin: auto;
+}
