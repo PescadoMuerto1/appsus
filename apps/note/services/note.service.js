@@ -19,6 +19,7 @@ function query(filterBy = getDefaultFilter()) {
 
     return storageService.query(NOTE_KEY)
         .then(notes => {
+            notes = notes.filter(note => !!note.isArchive === filterBy.isArchive)
             if (filterBy.text) {
                 const regex = new RegExp(filterBy.text, 'i')
                 notes = notes.filter(note => regex.test(note.title) || regex.test(note.text))
@@ -58,7 +59,7 @@ function getEmptyNote() {
 }
 
 function getDefaultFilter() {
-    return { text: '' }
+    return { text: '', isArchive: false }
 }
 
 function _createNotes() {

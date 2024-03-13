@@ -35,3 +35,7 @@
 .hidden {
     display: none;
 }
+
+.pinned {
+    color: var(--pinned-color); 
+}
