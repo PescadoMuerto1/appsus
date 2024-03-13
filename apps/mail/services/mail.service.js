@@ -1,6 +1,7 @@
 // mail service
-import { utilService } from './util.service.js'
-import { storageService } from './async-storage.service.js'
+import { utilService } from './../../../services/util.service.js'
+import { storageService } from './../../../services/async-storage.service.js'
+import { localStorageService } from './../../../services/storage.service.js'
 
 const MAIL_KEY = 'mailDB'
 const loggedinUser = {
@@ -21,22 +22,21 @@ export const mailService = {
     getDefaultFilter,
     setFilterBy,
     addReview,
-    getEmptyReview,
-    addGoogleMail
+    getEmptyReview
 }
 
 window.bs = mailService
 function query(filterBy = getDefaultFilter()) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            // console.log('mails:', mails)
-            if (filterBy.title) {
-                const regex = new RegExp(filterBy.title, 'i')
-                mails = mails.filter(mail => regex.test(mail.title))
-            }
-            if (filterBy.maxPrice) {
-                mails = mails.filter(mail => mail.listPrice.amount <= filterBy.maxPrice)
-            }
+            // // console.log('mails:', mails)
+            // if (filterBy.title) {
+            //     const regex = new RegExp(filterBy.title, 'i')
+            //     mails = mails.filter(mail => regex.test(mail.title))
+            // }
+            // if (filterBy.maxPrice) {
+            //     mails = mails.filter(mail => mail.listPrice.amount <= filterBy.maxPrice)
+            // }
             return mails
         })
 }
@@ -110,10 +110,48 @@ function _setNextPrevMailId(mail) {
 }
 
 function _createMails() {
-    let mails = utilService.loadFromStorage(MAIL_KEY)
+    let mails = localStorageService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
-
-        utilService.saveToStorage(MAIL_KEY, mails)
+        mails = [
+            {
+                id: utilService.makeId(),
+                subject: 'Miss you!',
+                body: 'Would love to catch up sometimes',
+                isRead: false,
+                sentAt: 1551133930594,
+                removedAt: null,
+                from: 'momo@momo.com',
+                to: 'user@appsus.com'
+            }, {
+                id: utilService.makeId(),
+                subject: 'Hi there',
+                body: 'Call me sometime',
+                isRead: false,
+                sentAt: 1551132930594,
+                removedAt: null,
+                from: 'momo@momo.com',
+                to: 'user@appsus.com'
+            }, {
+                id: utilService.makeId(),
+                subject: 'Bent/Matchbox Twenty',
+                body: 'Can you help me I\'m bent?\nI\'m so scared that I\'ll never\nGet put back together\nKeep breaking me in\nAnd this is how we will end\nWith you and me bent',
+                isRead: false,
+                sentAt: 1551133830594,
+                removedAt: null,
+                from: 'momo@momo.com',
+                to: 'user@appsus.com'
+            }, {
+                id: utilService.makeId(),
+                subject: 'Hey There Delilah',
+                body: 'What\'s it like in New York City?\nI\'m a thousand miles away, but girl, tonight, you look so pretty, yes you do\nTimes Square can\'t shine as bright as you\nI swear it\'s true',
+                isRead: true,
+                sentAt: null,
+                removedAt: null,
+                from: 'momo@momo.com',
+                to: 'user@appsus.com'
+            }
+        ]
+        localStorageService.saveToStorage(MAIL_KEY, mails)
     }
 }
 
@@ -123,25 +161,14 @@ function _createMail(title, price = 50) {
     return mail
 }
 
-// const mail = { id: 'e101', subject: 'Miss you!', body: 'Would love to catch up sometimes', isRead: false, sentAt : 1551133930594, removedAt : null, from: 'momo@momo.com', to: 'user@appsus.com' }
-///////////////////////////
-const a = {
-    "id": "OXeMG8wNskc",
-    "title": "metus hendrerit",
-    "subtitle": "mi est eros convallis auctor arcu dapibus himenaeos",
-    "authors": ["Barbara Mailtland"],
-    "publishedDate": 1999,
-    "description": "placerat nisi sodales suscipit tellus tincidunt mauris elit sit luctus interdum ad dictum platea vehicula conubia fermentum habitasse congue suspendisse",
-    "pageCount": 713,
-    "categories": ["Computers", "Hack"],
-    "thumbnail": "assets/imgs/20.jpg",
-    "language": "en",
-    "listPrice": {
-        "amount": 109,
-        "currencyCode": "EUR",
-        "isOnSale": false
-    }
-}
+// const mail = {
+//     id: 'e101',
+//     subject: 'Miss you!',
+//     body: 'Would love to catch up sometimes',
+//     isRead: false, sentAt: 1551133930594,
+//     removedAt: null, from: 'momo@momo.com',
+//     to: 'user@appsus.com'
+// }
 
 
 
