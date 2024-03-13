@@ -37,6 +37,7 @@ function remove(noteId) {
 
 function save(note) {
     if (note.id) {
+        note.createdAt = Date.now()
         return storageService.put(NOTE_KEY, note)
     } else {
         return storageService.post(NOTE_KEY, note)
@@ -73,6 +74,7 @@ function _createNotes() {
             style: {
                 backgroundColor: '#ffff'
             },
+            createdAt:1710334094033
         },
         {
             id: 'shkf87s',
@@ -83,6 +85,7 @@ function _createNotes() {
             style: {
                 backgroundColor: '#ffff'
             },
+            createdAt:1710334094033
         },
         {
             id: 'shkf87s',
@@ -94,6 +97,7 @@ function _createNotes() {
             style: {
                 backgroundColor: '#ffff'
             },
+            createdAt:1710334094033
         }
         ]
 
