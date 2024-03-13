@@ -4,6 +4,7 @@
     border-radius: 1rem;
     break-inside: avoid-column;
     margin-block-end: 1rem;
+    width: 16.25rem;
 }
 
 .note-preview {

@@ -4,18 +4,33 @@
 }
 
 .add-note {
-    height: 100%;
-    width: 600px;
+    margin: 57px auto 16px auto;
+    width: 37.5rem;
     display: grid;
-    grid-template-rows: repeat(3,44px);
+    grid-template-rows: 2.75rem minmax(2.75rem, auto) 2.75rem;
     place-items: center;
     /* border: 1px solid #e0e0e0; */
-    border-radius: 2rem;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;}
+
+.add-note input, .add-note textarea{
+    font-size: 1rem;
+    width: 100%;
+    border: none;
+    min-height: 44px;
+    border-radius: 6px;
+    outline: none;
+    display: flex;
 }
 
-.add-note input {
-    width: 600px;
+.add-note .note-text {
+    font-size: 0.875rem;
+}
+
+.add-note button {
+    background: transparent;
     border: none;
-    height: 44px;
+    cursor: pointer;
+    justify-self: end;
+    padding-inline: 2rem;
 }

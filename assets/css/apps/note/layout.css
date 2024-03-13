@@ -1,5 +1,5 @@
 .notes-list-layout {
-    columns: 4 250px;
+    columns: 5 16.25rem;
     column-gap: 1rem;
 }
 
@@ -9,4 +9,5 @@
 
 .main-notes-layout {
     display: grid;
+    grid-column: 2;
 }

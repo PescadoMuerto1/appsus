@@ -39,13 +39,9 @@ export function NoteIndex() {
             .catch(console.error)
     }
 
-    function onArchiveNote(ev, noteToArchive) {
-        ev.stopPropagation()
-        noteToArchive.isArchived = true
-        noteService.save(noteToUpdate)
-            .then(() => {
-                setNotes((prevNotes) => prevNotes.map(note => note.id))
-            })
+    function onSaveNote(note) {
+        noteService.save(note)
+            .then(loadNotes)
             .catch(console.error)
     }
 
@@ -61,7 +57,7 @@ export function NoteIndex() {
     return (
         <main className='main-notes main-notes-layout'>
             <div>
-                <AddNote />
+                <AddNote onSaveNote={onSaveNote} />
             </div>
             <div className='content-layout'>
                 <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} />
