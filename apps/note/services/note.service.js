@@ -65,7 +65,7 @@ function _createNotes() {
     let notes = localStorageService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = [{
-            id: 'shkj887',
+            id: 'shkj8dsf87',
             img: 'assets/img/DSC00157.jpg',
             title: 'hello world',
             text: 'lajlkfjds sdlhflksa dfhlakh f asdfhklas;hf; ashlkas ',
@@ -75,6 +75,7 @@ function _createNotes() {
                 backgroundColor: '#ffff'
             },
             createdAt:1710334094033
+
         },
         {
             id: 'shkf87s',
@@ -88,7 +89,7 @@ function _createNotes() {
             createdAt:1710334094033
         },
         {
-            id: 'shkf87s',
+            id: 'fsfdfds',
             img: '',
             title: 'bye world',
             text: 'lajlkfjds sdlhflksa dfhlakh f asdfhklas;hf; ashlkas ',

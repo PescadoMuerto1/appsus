@@ -14,12 +14,7 @@ export function NotePreview({ note }) {
                         <NoteTodo todo={todo}/>
                     )}
                 </ul>}
-                <ul className="note-actions clean-list">
-                    <li> <i class="fa-solid fa-trash-can"></i></li>
-                    <li> <i class="fa-solid fa-palette"></i></li>
-                    <li> <i class="fa-solid fa-thumbtack"></i></li>
-                    <li> <i class="fa-solid fa-box-archive"></i></li>
-                </ul>
+            
         </article>
     )
 }
