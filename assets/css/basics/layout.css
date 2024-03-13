@@ -11,3 +11,9 @@
 .main-layout>.full {
     grid-column: 1 / -1;
 }
+
+.main-content {
+    width: 100%;
+    padding: 1em;
+    margin: auto;
+}
