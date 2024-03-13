@@ -1,1 +1,102 @@
-// note service
+import { utilService } from './../../../services/util.service.js'
+import { storageService } from './../../../services/async-storage.service.js'
+import { localStorageService } from './../../../services/storage.service.js'
+
+const NOTE_KEY = 'noteDB'
+
+_createNotes()
+
+export const noteService = {
+    query,
+    get,
+    remove,
+    save,
+    getEmptyNote,
+    getDefaultFilter
+}
+
+function query(filterBy = getDefaultFilter()) {
+
+    return storageService.query(NOTE_KEY)
+        .then(notes => {
+            if (filterBy.text) {
+                const regex = new RegExp(filterBy.text, 'i')
+                notes = notes.filter(note => regex.test(note.title) || regex.test(note.text))
+            }
+            return notes
+        })
+}
+
+function get(noteId) {
+    return storageService.get(NOTE_KEY, noteId)
+}
+
+function remove(noteId) {
+    return storageService.remove(NOTE_KEY, noteId)
+}
+
+function save(note) {
+    if (note.id) {
+        return storageService.put(NOTE_KEY, note)
+    } else {
+        return storageService.post(NOTE_KEY, note)
+    }
+}
+
+function getEmptyNote() {
+    return {
+        title: "",
+        text: "",
+        img: "",
+        isPinned: false,
+        todos: [],
+        style: {
+            backgroundColor: '#ffff'
+        },
+    }
+}
+
+function getDefaultFilter() {
+    return { text: '' }
+}
+
+function _createNotes() {
+    let notes = localStorageService.loadFromStorage(NOTE_KEY)
+    if (!notes || !notes.length) {
+        notes = [{
+            id: 'shkj887',
+            img: 'assets/img/DSC00157.jpg',
+            title: 'hello world',
+            text: 'lajlkfjds sdlhflksa dfhlakh f asdfhklas;hf; ashlkas ',
+            todos: [{ id: 'sgh3', text: 'todo 1', isChecked: true }],
+            isPinned: false,
+            style: {
+                backgroundColor: '#ffff'
+            },
+        },
+        {
+            id: 'shkf87s',
+            img: 'assets/img/a (1).jpg',
+            title: 'bye world',
+            todos: [{ id: 'sgh3', text: 'todo 1', isChecked: true }, { id: 'sg43', text: 'todo 2', isChecked: false }],
+            isPinned: true,
+            style: {
+                backgroundColor: '#ffff'
+            },
+        },
+        {
+            id: 'shkf87s',
+            img: '',
+            title: 'bye world',
+            text: 'lajlkfjds sdlhflksa dfhlakh f asdfhklas;hf; ashlkas ',
+            todos: [{ id: 'sgh3', text: 'todo 1', isChecked: true }, { id: 'sg43', text: 'todo 2', isChecked: false }],
+            isPinned: false,
+            style: {
+                backgroundColor: '#ffff'
+            },
+        }
+        ]
+
+        localStorageService.saveToStorage(NOTE_KEY, notes)
+    }
+}
