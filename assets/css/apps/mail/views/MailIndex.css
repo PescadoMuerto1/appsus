@@ -1,1 +1,3 @@
- /* mail index  */
+.mail-index{
+    grid-column: 2;
+}

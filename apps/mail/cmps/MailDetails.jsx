@@ -1,4 +1,4 @@
-const { useNavigate, useParams } = ReactRouter
+const { useParams } = ReactRouter
 const { useState, useEffect } = React
 
 import { mailService } from "../services/mail.service.js"

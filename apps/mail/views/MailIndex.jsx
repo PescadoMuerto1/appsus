@@ -1,14 +1,15 @@
-const { useState, useEffect } = React
+const { useState, useEffect, Fragment } = React
 const { useNavigate, useParams } = ReactRouter
-const { Link } = ReactRouterDOM
+const { Link, Outlet } = ReactRouterDOM
 
 import { MailList } from "../cmps/MailList.jsx";
+import { MailSideBar } from "../cmps/MailSideBar.jsx";
 import { mailService } from "../services/mail.service.js";
 
 export function MailIndex() {
     const [mails, setMails] = useState(null)
     const navigate = useNavigate()
-    
+
     useEffect(() => {
         loadMails()
     }, [])
@@ -54,9 +55,13 @@ export function MailIndex() {
         navigate(`/mail/${mail.id}`)
     }
 
-    if (!mails) return <div>loading...</div>
-    return <section className="email-index">
-        <MailList mails={ mails } onDeleteMail={ onDeleteMail } onMailSelect={ onMailSelect } />
-    </section >
+    return <Fragment>
+        <MailSideBar />
+        {/* <Outlet /> */}
+        <section className="mail-index">
+            { !mails && <div>loading...</div> }
+            { mails && <MailList mails={ mails } onDeleteMail={ onDeleteMail } onMailSelect={ onMailSelect } /> }
+        </section >
+    </Fragment>
 }
 
