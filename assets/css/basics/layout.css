@@ -1,19 +1,18 @@
 .main-layout {
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 90vw 1fr;
+    /* margin: 0 auto; */
+    grid-template-columns: 100px 90vw 1fr;
 }
 
-.main-layout> :not(.full) {
+/* .main-layout> :not(.full) {
     grid-column: 2;
-}
+} */
 
-.main-layout>.full {
+.full {
     grid-column: 1 / -1;
 }
 
 .main-content {
-    width: 100%;
-    padding: 1em;
-    margin: auto;
+    grid-template-areas: 
+    "sidebar content ."
+    ;
 }
