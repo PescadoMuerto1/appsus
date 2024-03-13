@@ -13,24 +13,55 @@ export function NoteIndex() {
 
     function loadNotes() {
         noteService.query()
-            // .then((notes) => sortNotes(notes, sortBy))
             .then(setNotes)
             .catch(console.error)
     }
 
-    function onRemoveNote(noteId) {
+    function onRemoveNote(ev, noteId) {
+        ev.stopPropagation()
         noteService.remove(noteId)
             .then(() => {
                 setNotes((prevNotes) => prevNotes.filter(note => note.id !== noteId))
-                showSuccessMsg(`note removed successfully${noteId}`)
+                // showSuccessMsg(`note removed successfully${noteId}`)
             })
             .catch(console.error)
+    }
+
+    function onArchiveNote(ev, noteToArchive) {
+        ev.stopPropagation()
+        noteToArchive.isArchived = true
+        noteService.save(noteToArchive)
+            .then(() => {
+                setNotes((prevNotes) => prevNotes.filter(note => note.id !== noteToArchive.id))
+                // showSuccessMsg(`note moved successfully${note.id}`)
+            })
+            .catch(console.error)
+    }
+
+    function onArchiveNote(ev, noteToArchive) {
+        ev.stopPropagation()
+        noteToArchive.isArchived = true
+        noteService.save(noteToUpdate)
+            .then(() => {
+                setNotes((prevNotes) => prevNotes.map(note => note.id))
+            })
+            .catch(console.error)
+    }
+
+    function onPinNote(ev, note) {
+        ev.stopPropagation()
+        note.isPinned = !note.isPinned ? true : false
+        noteService.save(note)
+        .then(loadNotes)
+        .catch(console.error)
     }
 
     if (!notes) return <div>loading...</div>
     return (
         <div className='content-layout'>
-            <NoteList notes={notes} onRemoveNote={onRemoveNote}/>
+            
+            <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} />
+            <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} />
         </div>
     )
 }
