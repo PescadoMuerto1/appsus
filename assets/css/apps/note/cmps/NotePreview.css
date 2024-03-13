@@ -1,12 +1,12 @@
 .note-preview {
-    width: 350px;
+    position: relative;
     border: 0.5px solid grey;
     border-radius: 1rem;
     break-inside: avoid-column;
     margin-block-end: 1rem;
 }
 
-.note-preview :first-child{
+.note-preview :first-child {
     top: 0;
 }
 
@@ -28,4 +28,21 @@
 .note-preview .note-todos-list {
     padding: 0.8rem 1rem;
     font-size: 1.5rem;
+}
+
+.note-actions {
+    display: grid;
+    grid-auto-flow: column;
+    place-items: center;
+}
+
+.note-actions li {
+    height: 34px;
+    width: 34px;
+    display: grid;
+    place-items: center;
+}
+
+.note-actions i {
+    font-size: 1.4rem;
 }

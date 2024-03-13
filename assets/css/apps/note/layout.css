@@ -1,6 +1,5 @@
 .notes-list-layout {
-    columns: 5 300px;
-    grid-template-columns: repeat(5, 350px);
+    columns: 4 250px;
     column-gap: 1rem;
 }
 
