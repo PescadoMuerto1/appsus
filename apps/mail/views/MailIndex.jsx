@@ -12,26 +12,26 @@ export function MailIndex() {
 
     const [mails, setMails] = useState(null)
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromParams(searchParams))
-    
+
     const userRef = useRef()
     const navigate = useNavigate()
 
     useEffect(() => {
         userRef.current = mailService.getUser()
-        console.log('searchParams:', searchParams)
-        
+        console.log('hi');
         // setFilterBy(prevFilter => ({ ...prevFilter, to: userRef.mail }))
     }, [])
 
-    // useEffect(() => {
-    //     setFilterBy(mailService.getFilterFromParams(searchParams))
-    // }, [searchParams])
+    useEffect(() => {
+        setFilterBy(mailService.getFilterFromParams(searchParams))
+    }, [searchParams])
 
     useEffect(() => {
         console.log('filterBy:', filterBy)
 
-        // setSearchParams(filterBy)
         setSearchParams(getCleanFilter())
+        console.log('searchParams:', searchParams.get('folder'))
+
         loadMails()
     }, [filterBy])
 
@@ -45,9 +45,9 @@ export function MailIndex() {
     }
 
     function getCleanFilter() {
-        const cleanFilter ={}
+        const cleanFilter = {}
         for (const key in filterBy) {
-            if(filterBy[key]) cleanFilter[key] = filterBy[key]
+            if (filterBy[key]) cleanFilter[key] = filterBy[key]
         }
         return cleanFilter
     }

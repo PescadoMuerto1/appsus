@@ -34,6 +34,7 @@ export function MailCompose() {
                 <input type="text" name="subject" id="subject" placeholder="Subject" value={ mail.subject } onChange={ handleChange } />
                 <textarea id="body" name="body" rows="5" cols="33" placeholder="Content" value={ mail.body } onChange={ handleChange } />
                 <button>Send</button>
+                <button>Save for later</button>
             </form>
         </section>
     </Fragment>
