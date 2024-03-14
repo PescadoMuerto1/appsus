@@ -91,7 +91,7 @@ function _createNotes() {
             todos: [{ id: 'sgh3', text: 'todo 1', isChecked: true }, { id: 'sg43', text: 'todo 2', isChecked: false }],
             isPinned: true,
             style: {
-                backgroundColor: 'red'
+                backgroundColor: 'lightblue'
             },
             createdAt: 1710334094033,
             type: ['image', 'todo'],

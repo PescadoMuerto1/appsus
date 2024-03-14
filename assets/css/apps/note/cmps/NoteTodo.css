@@ -1,0 +1,26 @@
+.note-todo {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: max-content 1fr;
+    padding: 0.25rem;
+}
+
+.note-todo button {
+    background: transparent;
+    border: none;
+    place-self: center end;
+}
+
+.note-todo input {
+    margin-inline-start: 0;
+    place-self: top start;
+    accent-color: var(--note-text-color);
+}
+
+.note-todo input:checked +label{
+    text-decoration: line-through;
+}
+
+.note-todo label {
+    padding-inline-start: 0.25rem;
+}

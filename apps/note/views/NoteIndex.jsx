@@ -86,8 +86,8 @@ export function NoteIndex() {
             </div>
 
             <div className='content-layout'>
-                <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} />
-                <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} />
+                <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
+                <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote}/>
             </div>
             {selectedNote && <EditNoteModal noteToEdit={selectedNote} onSaveNote={onSaveNote} setSelectNote={setSelectedNote} />}
         </main>
