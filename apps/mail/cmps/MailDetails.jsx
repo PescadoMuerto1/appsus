@@ -1,5 +1,5 @@
 const { useParams } = ReactRouter
-const { useState, useEffect } = React
+const { useState, useEffect, Fragment } = React
 
 import { mailService } from "../services/mail.service.js"
 
@@ -24,4 +24,5 @@ export function MailDetails() {
             { mail.body }
         </div>
     </section>
+
 }

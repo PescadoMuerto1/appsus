@@ -33,16 +33,16 @@ function query(filterBy = getDefaultFilter()) {
                 mails = mails.filter(mail => mail.to === loggedinUser.mail && !mail.removedAt)
             }
             if (filterBy.folder === 'sent') {
-                mails = mails.filter(mail => mail.from === loggedinUser.mail && mail.sentAt)
+                mails = mails.filter(mail => mail.from === loggedinUser.mail && mail.sentAt && !mail.removedAt)
             }
             if (filterBy.folder === 'drafts') {
-                mails = mails.filter(mail => mail.from === loggedinUser.mail && !mail.sentAt)
+                mails = mails.filter(mail => mail.from === loggedinUser.mail && !mail.sentAt && !mail.removedAt)
             }
             if (filterBy.folder === 'trash') {
                 mails = mails.filter(mail => mail.removedAt)
             }
             if (filterBy.folder === 'starred') {
-                mails = mails.filter(mail => mail.isStarred)
+                mails = mails.filter(mail => mail.isStarred && !mail.removedAt)
             }
             if (filterBy.txt) {
                 const regex = new RegExp(filterBy.txt, 'i')

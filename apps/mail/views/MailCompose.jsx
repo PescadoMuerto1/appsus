@@ -21,13 +21,12 @@ export function MailCompose() {
         mailService.save({ ...mail, sentAt: Date.now() })
             .then(mail => {
                 console.log('mail:', mail)
-                navigate(`/mail`)
+                navigate(`/mail/list`)
             })
             .catch(err => console.log('err:', err))
     }
 
     return <Fragment>
-        <MailSideBar />
         <section>
             <form className="grid" onSubmit={ onSend }>
                 <input type="email" name="to" id="to" placeholder="To" value={ mail.value } onChange={ handleChange } />
