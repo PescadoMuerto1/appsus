@@ -1,14 +1,19 @@
+
 import { MailPreview } from "./MailPreview.jsx";
 
-export function MailList({ mails, onDeleteMail, onMailSelect }) {
+
+export function MailList({ mails, onDeleteMail, onMailSelect, onToggleProperty }) {
+
 
     return <table className="mail-list">
         <tbody>
             { mails.map(mail =>
-                <tr className="mail-row" key={ mail.id } onClick={ () => onMailSelect(mail) }>
-                    <td><button onClick={ (ev) => onDeleteMail(ev, mail) }>✕</button></td>
-                    <MailPreview mail={ mail } />
-                </tr>) }
+                <MailPreview mail={ mail } key={ mail.id }
+                    onDeleteMail={ onDeleteMail }
+                    onMailSelect={ onMailSelect }
+                    onToggleProperty={ onToggleProperty } />
+            )
+            }
         </tbody>
-    </table>
+    </table >
 }

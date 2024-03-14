@@ -1,6 +1,7 @@
 .app-header {
     background: var(--main-bg-color);
-    border-bottom: 2px solid white;
+    padding-block: 0.7rem;
+    /* border-bottom: 2px solid white; */
 }
 
 .app-header .header-logo{

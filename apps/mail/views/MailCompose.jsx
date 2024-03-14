@@ -32,9 +32,9 @@ export function MailCompose() {
             <form className="grid" onSubmit={ onSend }>
                 <input type="email" name="to" id="to" placeholder="To" value={ mail.value } onChange={ handleChange } />
                 <input type="text" name="subject" id="subject" placeholder="Subject" value={ mail.subject } onChange={ handleChange } />
-                <textarea id="body" name="body" rows="5" cols="33" placeholder="Content">
-                </textarea>
+                <textarea id="body" name="body" rows="5" cols="33" placeholder="Content" value={ mail.body } onChange={ handleChange } />
                 <button>Send</button>
+                <button>Save for later</button>
             </form>
         </section>
     </Fragment>
