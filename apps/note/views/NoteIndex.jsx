@@ -5,10 +5,11 @@ import { NoteList } from '../cmps/NoteList.jsx'
 import { AddNote } from '../cmps/AddNote.jsx'
 import { noteService } from '../services/note.service.js'
 import { AddNoteBar } from '../cmps/AddNoteBar.jsx'
+import { EditNoteModal } from '../cmps/EditNoteModal.jsx'
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
-    const [isEdit, setIsEdit] = useState(null)
+    const [selectedNote, setSelectedNote] = useState(null)
     const [emptyNote, setEmptyNote] = useState(null)
     const editMode = useRef(null)
 
@@ -19,12 +20,12 @@ export function NoteIndex() {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-          if (!editMode.current.contains(event.target)) {
-            setEmptyNote(false)
-          }
+            if (!editMode.current.contains(event.target)) {
+                setEmptyNote(false)
+            }
         }
         document.addEventListener("mousedown", handleClickOutside)
-      }, [editMode])
+    }, [editMode])
 
     function loadNotes() {
         noteService.query()
@@ -56,6 +57,7 @@ export function NoteIndex() {
     function onSaveNote(note) {
         noteService.save(note)
             .then(loadNotes)
+            .then(() => {if(selectedNote) setSelectedNote('')})
             .catch(console.error)
     }
 
@@ -71,24 +73,23 @@ export function NoteIndex() {
         setEmptyNote(noteService.getEmptyNote(type))
     }
 
-    // const closeAddMode = (e)=>{
-    //     if(emptyNote && !editMode.current?.contains(e.target)){
-    //       setEmptyNote(false)
-    //     }
-    // }
+    function onSelectNote(note) {
+        setSelectedNote(note)
+    }
 
     if (!notes) return <div>loading...</div>
     return (
         <main className='main-notes main-notes-layout'>
-                {!emptyNote && <AddNoteBar onAddNote={onAddNote}/>}
+            {!emptyNote && <AddNoteBar onAddNote={onAddNote} />}
             <div ref={editMode}>
-                {emptyNote &&  <AddNote onSaveNote={onSaveNote} emptyNote={emptyNote} />}
+                {emptyNote && <AddNote onSaveNote={onSaveNote} noteToEdit={emptyNote} />}
             </div>
-            
+
             <div className='content-layout'>
-                <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} />
-                <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} />
+                <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} />
+                <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} />
             </div>
+            {selectedNote && <EditNoteModal noteToEdit={selectedNote} onSaveNote={onSaveNote} setSelectNote={setSelectedNote} />}
         </main>
     )
 }

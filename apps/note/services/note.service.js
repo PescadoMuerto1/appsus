@@ -48,7 +48,7 @@ function save(note) {
 
 function getEmptyNote(type) {
     return {
-        type,
+        type: [type],
         title: "",
         text: "",
         img: "",
@@ -81,8 +81,8 @@ function _createNotes() {
             style: {
                 backgroundColor: '#ffff'
             },
-            createdAt: 1710334094033
-
+            createdAt: 1710334094033,
+            type: ['image', 'todo']
         },
         {
             id: 'shkf87s',
@@ -91,9 +91,11 @@ function _createNotes() {
             todos: [{ id: 'sgh3', text: 'todo 1', isChecked: true }, { id: 'sg43', text: 'todo 2', isChecked: false }],
             isPinned: true,
             style: {
-                backgroundColor: '#ffff'
+                backgroundColor: 'red'
             },
-            createdAt: 1710334094033
+            createdAt: 1710334094033,
+            type: ['image', 'todo'],
+
         },
         {
             id: 'fsfdfds',
@@ -105,7 +107,8 @@ function _createNotes() {
             style: {
                 backgroundColor: '#ffff'
             },
-            createdAt: 1710334094033
+            createdAt: 1710334094033,
+            type: ['text', 'todo']
         }
         ]
 
