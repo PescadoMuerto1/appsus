@@ -41,9 +41,9 @@ function query(filterBy = getDefaultFilter()) {
             if (filterBy.folder === 'trash') {
                 mails = mails.filter(mail => mail.removedAt)
             }
-            // if (filterBy.folder === 'starred') {
-            //     mails = mails.filter(mail => mail.stared)
-            // }
+            if (filterBy.folder === 'starred') {
+                mails = mails.filter(mail => mail.isStarred)
+            }
             if (filterBy.txt) {
                 const regex = new RegExp(filterBy.txt, 'i')
                 mails = mails.filter(mail => regex.test(mail.subject) || regex.test(mail.body))
@@ -159,6 +159,7 @@ function _createMails() {
                 subject: 'Miss you!',
                 body: 'Would love to catch up sometimes',
                 isRead: false,
+                isStarred: false,
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'momo@momo.com',
@@ -168,6 +169,7 @@ function _createMails() {
                 subject: 'Hi there',
                 body: 'Call me sometime',
                 isRead: false,
+                isStarred: false,
                 sentAt: 1551132930594,
                 removedAt: null,
                 from: 'momo@momo.com',
@@ -177,6 +179,7 @@ function _createMails() {
                 subject: 'Bent/Matchbox Twenty',
                 body: 'Can you help me I\'m bent?\nI\'m so scared that I\'ll never\nGet put back together\nKeep breaking me in\nAnd this is how we will end\nWith you and me bent',
                 isRead: false,
+                isStarred: true,
                 sentAt: 1551133830594,
                 removedAt: null,
                 from: 'momo@momo.com',
@@ -186,6 +189,7 @@ function _createMails() {
                 subject: 'Hey There Delilah',
                 body: 'What\'s it like in New York City?\nI\'m a thousand miles away, but girl, tonight, you look so pretty, yes you do\nTimes Square can\'t shine as bright as you\nI swear it\'s true',
                 isRead: true,
+                isStarred: true,
                 sentAt: null,
                 removedAt: null,
                 from: 'momo@momo.com',

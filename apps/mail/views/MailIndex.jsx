@@ -67,8 +67,7 @@ export function MailIndex() {
             mailService.save(mailToDelete)
                 .then(mail => {
                     console.log('mail:', mail)
-                    setMails(prevMails => prevMails.map(mail =>
-                        (mail.id === mailToDelete.id) ? mailToDelete : mail))
+                    setMails(prevMails => prevMails.filter(mail => mail.id !== mailToDelete.id))
                 })
                 .catch(err => console.log('err:', err))
         }
@@ -84,16 +83,62 @@ export function MailIndex() {
         navigate(`/mail/${mail.id}`)
     }
 
+    // function onToggleStarMail(ev, mailToStar) {
+    //     ev.stopPropagation()
+    //     mailToStar.isStarred = !mailToStar.isStarred
+    //     mailService.save(mailToStar)
+    //         .then(mail => {
+    //             console.log('selected mail:', mail)
+    //             if (filterBy.folder === 'starred') {
+    //                 setMails(prevMails => prevMails.filter(mail => mail.id !== mailToStar.id))
+    //             }
+    //             else {
+    //                 setMails(prevMails => ([...prevMails]))
+    //             }
+    //         })
+    // }
+
+    // function onToggleIsRead(ev, mailToMark) {
+    //     ev.stopPropagation()
+    //     mailToMark.isRead = !mailToMark.isRead
+    //     mailService.save(mailToMark)
+    //         .then(mail => {
+    //             console.log('selected mail:', mail)
+    //             setMails(prevMails => ([...prevMails]))
+    //         })
+    // }
+
+    function onToggleProperty(ev, mailToToggle, key) {
+        ev.stopPropagation()
+        mailToToggle[key] = !mailToToggle[key]
+        mailService.save(mailToToggle)
+            .then(mail => {
+                console.log('selected mail:', mail)
+                if (key === 'isStarred' && filterBy.folder === 'starred') {
+                    setMails(prevMails => prevMails.filter(mail => mail.id !== mailToToggle.id))
+                }
+                else if (key === 'isRead' && filterBy.isRead !== null && mail.isRead !== filterBy.isRead) {
+                    setMails(prevMails => prevMails.filter(mail => mail.id !== mailToToggle.id))
+                }
+                else {
+                    setMails(prevMails => ([...prevMails]))
+                }
+            })
+    }
+
+
+
     function onChangeFolder(folder) {
         setFilterBy(prevFilter => ({ ...prevFilter, folder }))
     }
 
     return <Fragment>
-        <MailSideBar onChangeFolder={ onChangeFolder } />
+        <MailSideBar onChangeFolder={ onChangeFolder }
+            unreadCount={ mails ? mails.reduce((acc, mail) => !mail.isRead ? acc + 1 : acc, 0) : '' } />
         <section className="mail-index">
             <MailFilter />
             { !mails && <div>loading...</div> }
-            { mails && <MailList mails={ mails } onDeleteMail={ onDeleteMail } onMailSelect={ onMailSelect } /> }
+            { mails && <MailList mails={ mails } onDeleteMail={ onDeleteMail } onMailSelect={ onMailSelect } onToggleProperty={ onToggleProperty } /> }
         </section >
     </Fragment>
 }
