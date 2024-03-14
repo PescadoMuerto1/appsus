@@ -1,6 +1,6 @@
 const { useState, useEffect, useRef, Fragment } = React
 const { useNavigate } = ReactRouter
-const { useSearchParams } = ReactRouterDOM
+const { useSearchParams, Outlet } = ReactRouterDOM
 
 import { MailFilter } from "../cmps/MailFilter.jsx";
 import { MailList } from "../cmps/MailList.jsx";
@@ -80,33 +80,8 @@ export function MailIndex() {
                 .then(mail => console.log('selected mail:', mail))
                 .catch(err => console.log('err:', err))
         }
-        navigate(`/mail/${mail.id}`)
+        navigate(`/mail/read/${mail.id}`)
     }
-
-    // function onToggleStarMail(ev, mailToStar) {
-    //     ev.stopPropagation()
-    //     mailToStar.isStarred = !mailToStar.isStarred
-    //     mailService.save(mailToStar)
-    //         .then(mail => {
-    //             console.log('selected mail:', mail)
-    //             if (filterBy.folder === 'starred') {
-    //                 setMails(prevMails => prevMails.filter(mail => mail.id !== mailToStar.id))
-    //             }
-    //             else {
-    //                 setMails(prevMails => ([...prevMails]))
-    //             }
-    //         })
-    // }
-
-    // function onToggleIsRead(ev, mailToMark) {
-    //     ev.stopPropagation()
-    //     mailToMark.isRead = !mailToMark.isRead
-    //     mailService.save(mailToMark)
-    //         .then(mail => {
-    //             console.log('selected mail:', mail)
-    //             setMails(prevMails => ([...prevMails]))
-    //         })
-    // }
 
     function onToggleProperty(ev, mailToToggle, key) {
         ev.stopPropagation()
@@ -136,9 +111,10 @@ export function MailIndex() {
         <MailSideBar onChangeFolder={ onChangeFolder }
             unreadCount={ mails ? mails.reduce((acc, mail) => !mail.isRead ? acc + 1 : acc, 0) : '' } />
         <section className="mail-index">
-            <MailFilter />
+        <Outlet context={[mails, setMails, onDeleteMail, onMailSelect, onToggleProperty]}/>
+            {/* <MailFilter />
             { !mails && <div>loading...</div> }
-            { mails && <MailList mails={ mails } onDeleteMail={ onDeleteMail } onMailSelect={ onMailSelect } onToggleProperty={ onToggleProperty } /> }
+            { mails && <MailList mails={ mails } onDeleteMail={ onDeleteMail } onMailSelect={ onMailSelect } onToggleProperty={ onToggleProperty } /> } */}
         </section >
     </Fragment>
 }

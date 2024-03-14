@@ -5,11 +5,12 @@ const { Link, NavLink } = ReactRouterDOM
 export function MailSideBar({ onChangeFolder, unreadCount }) {
 
     return <ul className="sidebar clean-list">
+        
         <li className="flex"><Link to="/mail/compose"><button className="btn-compose">Compose</button></Link></li>
-        <li className="flex" onClick={ () => onChangeFolder('inbox') }>Inbox{ unreadCount ? ` (${unreadCount})` : '' }</li>
-        <li className="flex" onClick={ () => onChangeFolder('starred') }>Starred</li>
-        <li className="flex" onClick={ () => onChangeFolder('sent') }>Sent</li>
-        <li className="flex" onClick={ () => onChangeFolder('drafts') }>Drafts</li>
-        <li className="flex" onClick={ () => onChangeFolder('trash') }>Trash</li>
+        <li className="flex"><Link to="/mail/list?folder=inbox" >Inbox{ unreadCount ? ` (${unreadCount})` : '' }</Link></li>
+        <li className="flex"><Link to="/mail/list?folder=starred" >Starred</Link></li>
+        <li className="flex"><Link to="/mail/list?folder=sent" >Sent</Link></li>
+        <li className="flex"><Link to="/mail/list?folder=drafts" >Drafts</Link></li>
+        <li className="flex"><Link to="/mail/list?folder=trash" >Trash</Link></li>
     </ul>
 }

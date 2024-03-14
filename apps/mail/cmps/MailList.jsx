@@ -1,17 +1,19 @@
+const { useOutletContext } = ReactRouterDOM
 
 import { MailPreview } from "./MailPreview.jsx";
 
-
-export function MailList({ mails, onDeleteMail, onMailSelect, onToggleProperty }) {
-
-
+export function MailList() {
+    const [mails, setMails, onDeleteMail, onMailSelect, onToggleProperty] = useOutletContext()
+    { console.log('mails:', mails) }
+    if (!mails) return <div>Loading...</div>
     return <table className="mail-list">
         <tbody>
             { mails.map(mail =>
                 <MailPreview mail={ mail } key={ mail.id }
                     onDeleteMail={ onDeleteMail }
                     onMailSelect={ onMailSelect }
-                    onToggleProperty={ onToggleProperty } />
+                    onToggleProperty={ onToggleProperty }
+                />
             )
             }
         </tbody>
