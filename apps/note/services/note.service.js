@@ -12,7 +12,8 @@ export const noteService = {
     remove,
     save,
     getEmptyNote,
-    getDefaultFilter
+    getDefaultFilter,
+    getEmptyTodo
 }
 
 function query(filterBy = getDefaultFilter()) {
@@ -52,11 +53,15 @@ function getEmptyNote(type) {
         text: "",
         img: "",
         isPinned: false,
-        todos: [],
+        todos: [{ id: utilService.makeId(), text: '', isChecked: false }],
         style: {
             backgroundColor: '#ffff'
         },
     }
+}
+
+function getEmptyTodo() {
+    return { id: utilService.makeId(), text: '', isChecked: false }
 }
 
 function getDefaultFilter() {
@@ -76,7 +81,7 @@ function _createNotes() {
             style: {
                 backgroundColor: '#ffff'
             },
-            createdAt:1710334094033
+            createdAt: 1710334094033
 
         },
         {
@@ -88,7 +93,7 @@ function _createNotes() {
             style: {
                 backgroundColor: '#ffff'
             },
-            createdAt:1710334094033
+            createdAt: 1710334094033
         },
         {
             id: 'fsfdfds',
@@ -100,7 +105,7 @@ function _createNotes() {
             style: {
                 backgroundColor: '#ffff'
             },
-            createdAt:1710334094033
+            createdAt: 1710334094033
         }
         ]
 
