@@ -17,25 +17,45 @@ export const mailService = {
     remove,
     save,
     getEmptyMail,
-    // getNextMailId,
-    // getFilterBy,
     getDefaultFilter,
+    getFilterFromParams,
     setFilterBy,
     addReview,
-    getEmptyReview
+    getEmptyReview,
+    getUser
 }
 
-window.bs = mailService
+window.ms = mailService
 function query(filterBy = getDefaultFilter()) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
+            if (filterBy.folder === 'inbox') {
+                mails = mails.filter(mail => mail.to === loggedinUser.mail && !mail.removedAt)
+            }
+            if (filterBy.folder === 'sent') {
+                mails = mails.filter(mail => mail.from === loggedinUser.mail && mail.sentAt)
+            }
+            if (filterBy.folder === 'drafts') {
+                mails = mails.filter(mail => mail.from === loggedinUser.mail && !mail.sentAt)
+            }
+            if (filterBy.folder === 'trash') {
+                mails = mails.filter(mail => mail.removedAt)
+            }
+            // if (filterBy.folder === 'starred') {
+            //     mails = mails.filter(mail => mail.stared)
+            // }
             if (filterBy.txt) {
                 const regex = new RegExp(filterBy.txt, 'i')
                 mails = mails.filter(mail => regex.test(mail.subject) || regex.test(mail.body))
             }
+            if (filterBy.isRead !== null) {
+                mails = mails.filter(mail => mail.isRead === filterBy.isRead)
+            }
             if (filterBy.from) {
                 mails = mails.filter(mail => mail.from === filterBy.from)
-                
+            }
+            if (filterBy.to) {
+                mails = mails.filter(mail => mail.to === filterBy.to)
             }
             return mails
         })
@@ -58,11 +78,16 @@ function save(mail) {
     }
 }
 
+function getUser() {
+    return loggedinUser
+}
+
 function getEmptyMail() {
     return {
         id: '',
-        txt: '',
-        isRead: false,
+        subject: '',
+        body: '',
+        isRead: null,
         sentAt: null,
         removedAt: null,
         from: loggedinUser.mail,
@@ -70,19 +95,28 @@ function getEmptyMail() {
     }
 }
 
-// function getFilterBy() {
-//     return { ...gFilterBy }
-// }
-
 function getDefaultFilter() {
     return {
-        subject: '',
-        body: '',
-        // isRead: false,
+        folder: 'inbox',
+        txt: '',
+        isRead: null,
         sentAt: null,
         removedAt: null,
         from: '',
         to: ''
+    }
+}
+
+function getFilterFromParams(searchParams = {}) {
+    const defaultFilter = getDefaultFilter()
+    return {
+        folder: searchParams.get('folder') || defaultFilter.folder,
+        txt: searchParams.get('txt') || defaultFilter.txt,
+        isRead: searchParams.get('isRead') || defaultFilter.isRead,
+        sentAt: searchParams.get('sentAt') || defaultFilter.sentAt,
+        removedAt: searchParams.get('removedAt') || defaultFilter.removedAt,
+        from: searchParams.get('from') || defaultFilter.from,
+        to: searchParams.get('to') || defaultFilter.to,
     }
 }
 
@@ -128,7 +162,7 @@ function _createMails() {
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'momo@momo.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.mail
             }, {
                 id: utilService.makeId(),
                 subject: 'Hi there',
@@ -137,7 +171,7 @@ function _createMails() {
                 sentAt: 1551132930594,
                 removedAt: null,
                 from: 'momo@momo.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.mail
             }, {
                 id: utilService.makeId(),
                 subject: 'Bent/Matchbox Twenty',
@@ -146,7 +180,7 @@ function _createMails() {
                 sentAt: 1551133830594,
                 removedAt: null,
                 from: 'momo@momo.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.mail
             }, {
                 id: utilService.makeId(),
                 subject: 'Hey There Delilah',
@@ -155,7 +189,7 @@ function _createMails() {
                 sentAt: null,
                 removedAt: null,
                 from: 'momo@momo.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.mail
             }
         ]
         localStorageService.saveToStorage(MAIL_KEY, mails)

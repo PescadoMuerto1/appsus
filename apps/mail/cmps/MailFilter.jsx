@@ -1,5 +1,8 @@
-export function MailFilter(){
-    return <section>
-        FILTER
+export function MailFilter() {
+    return <section className="mail-filter">
+
+        <form >
+            
+        </form>
     </section>
 }

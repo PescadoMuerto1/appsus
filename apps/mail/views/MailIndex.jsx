@@ -1,6 +1,6 @@
-const { useState, useEffect, Fragment } = React
-const { useNavigate, useParams } = ReactRouter
-const { Link, Outlet } = ReactRouterDOM
+const { useState, useEffect, useRef, Fragment } = React
+const { useNavigate } = ReactRouter
+const { useSearchParams } = ReactRouterDOM
 
 import { MailFilter } from "../cmps/MailFilter.jsx";
 import { MailList } from "../cmps/MailList.jsx";
@@ -8,20 +8,48 @@ import { MailSideBar } from "../cmps/MailSideBar.jsx";
 import { mailService } from "../services/mail.service.js";
 
 export function MailIndex() {
+    const [searchParams, setSearchParams] = useSearchParams()
+
     const [mails, setMails] = useState(null)
+    const [filterBy, setFilterBy] = useState(mailService.getFilterFromParams(searchParams))
+    
+    const userRef = useRef()
     const navigate = useNavigate()
 
     useEffect(() => {
-        loadMails()
+        userRef.current = mailService.getUser()
+        console.log('searchParams:', searchParams)
+        
+        // setFilterBy(prevFilter => ({ ...prevFilter, to: userRef.mail }))
     }, [])
 
+    // useEffect(() => {
+    //     setFilterBy(mailService.getFilterFromParams(searchParams))
+    // }, [searchParams])
+
+    useEffect(() => {
+        console.log('filterBy:', filterBy)
+
+        // setSearchParams(filterBy)
+        setSearchParams(getCleanFilter())
+        loadMails()
+    }, [filterBy])
+
     function loadMails() {
-        mailService.query()
+        mailService.query(filterBy)
             .then(mails => {
                 console.log('mails from load:', mails)
                 setMails(mails)
             })
             .catch(err => console.log('err:', err))
+    }
+
+    function getCleanFilter() {
+        const cleanFilter ={}
+        for (const key in filterBy) {
+            if(filterBy[key]) cleanFilter[key] = filterBy[key]
+        }
+        return cleanFilter
     }
 
     function onDeleteMail(ev, mailToDelete) {
@@ -56,10 +84,14 @@ export function MailIndex() {
         navigate(`/mail/${mail.id}`)
     }
 
+    function onChangeFolder(folder) {
+        setFilterBy(prevFilter => ({ ...prevFilter, folder }))
+    }
+
     return <Fragment>
-        <MailSideBar />
-        <MailFilter />
+        <MailSideBar onChangeFolder={ onChangeFolder } />
         <section className="mail-index">
+            <MailFilter />
             { !mails && <div>loading...</div> }
             { mails && <MailList mails={ mails } onDeleteMail={ onDeleteMail } onMailSelect={ onMailSelect } /> }
         </section >
