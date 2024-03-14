@@ -2,6 +2,7 @@ const { useState, useEffect, Fragment } = React
 const { useNavigate, useParams } = ReactRouter
 const { Link, Outlet } = ReactRouterDOM
 
+import { MailFilter } from "../cmps/MailFilter.jsx";
 import { MailList } from "../cmps/MailList.jsx";
 import { MailSideBar } from "../cmps/MailSideBar.jsx";
 import { mailService } from "../services/mail.service.js";
@@ -57,6 +58,7 @@ export function MailIndex() {
 
     return <Fragment>
         <MailSideBar />
+        <MailFilter />
         <section className="mail-index">
             { !mails && <div>loading...</div> }
             { mails && <MailList mails={ mails } onDeleteMail={ onDeleteMail } onMailSelect={ onMailSelect } /> }

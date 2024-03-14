@@ -1,10 +1,22 @@
 .app-header {
-    background: lightcyan;
+    background: var(--main-bg-color);
     border-bottom: 2px solid white;
 }
 
-.app-header .header-content{
-    grid-column: 2/3;
+.app-header .header-logo{
+    grid-column: 1/2;
+}
+
+.app-header .header-logo div{
+    align-items: center;
+    gap: 1rem;
+
+    padding: 0.5rem;
+
+}
+
+.app-header img.logo{
+    height: 3rem;
 }
 
 nav a {

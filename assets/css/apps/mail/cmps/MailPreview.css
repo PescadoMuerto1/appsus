@@ -2,6 +2,10 @@
     font-size: 0.875rem;
 }
 
+.mail-row{
+    background-color: var(--read-bg-color);
+}
+
 .unread {
     font-weight: bold;
 }

@@ -29,14 +29,14 @@ window.bs = mailService
 function query(filterBy = getDefaultFilter()) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            // // console.log('mails:', mails)
-            // if (filterBy.title) {
-            //     const regex = new RegExp(filterBy.title, 'i')
-            //     mails = mails.filter(mail => regex.test(mail.title))
-            // }
-            // if (filterBy.maxPrice) {
-            //     mails = mails.filter(mail => mail.listPrice.amount <= filterBy.maxPrice)
-            // }
+            if (filterBy.txt) {
+                const regex = new RegExp(filterBy.txt, 'i')
+                mails = mails.filter(mail => regex.test(mail.subject) || regex.test(mail.body))
+            }
+            if (filterBy.from) {
+                mails = mails.filter(mail => mail.from === filterBy.from)
+                
+            }
             return mails
         })
 }
@@ -61,8 +61,7 @@ function save(mail) {
 function getEmptyMail() {
     return {
         id: '',
-        subject: '',
-        body: '',
+        txt: '',
         isRead: false,
         sentAt: null,
         removedAt: null,
@@ -76,7 +75,15 @@ function getEmptyMail() {
 // }
 
 function getDefaultFilter() {
-    return { title: '', maxPrice: 200 }
+    return {
+        subject: '',
+        body: '',
+        // isRead: false,
+        sentAt: null,
+        removedAt: null,
+        from: '',
+        to: ''
+    }
 }
 
 function setFilterBy(filterBy = {}) {

@@ -1,5 +1,9 @@
 :root {
-    --main-bg-color: lightblue;
-    --bg-color:#ffffff;
+    --main-bg-color: #F6F8FC;
+    --bg-color: #ffffff;
     --pinned-color: brown;
+
+    --read-bg-color:  #f2f6fc;
+    --border-color: #80808052;
+
 }
