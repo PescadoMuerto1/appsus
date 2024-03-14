@@ -2,8 +2,8 @@ import { noteService } from "../services/note.service.js"
 
 const { useState } = React
 
-export function AddNote({ onSaveNote }) {
-    const [note, setNote] = useState(noteService.getEmptyNote())
+export function AddNote({ onSaveNote, emptyNote }) {
+    const [note, setNote] = useState(emptyNote)
 
     function handleChange({ target }) {
         const field = target.name

@@ -7,13 +7,36 @@
     margin: 57px auto 16px auto;
     width: 37.5rem;
     display: grid;
-    grid-template-rows: 2.75rem minmax(2.75rem, auto) 2.75rem;
+    /* grid-template-rows: 2.75rem minmax(2.75rem, auto) 2.75rem; */
     place-items: center;
     /* border: 1px solid #e0e0e0; */
     border-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;}
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 
-.add-note input, .add-note textarea{
+.add-note-bar {
+    width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 4.5fr 0.5fr 0.5fr 0.5fr;
+    min-height: 46px;    
+}
+
+.add-note-bar h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: rgb(87, 87, 87);
+    padding: 0.75rem 1rem; 
+}
+
+.add-note-bar i {
+    font-size: 1.25rem;
+    color: rgb(87, 87, 87);
+    padding: 0.75rem 1rem;
+}
+
+.add-note input,
+.add-note textarea {
     font-size: 1rem;
     width: 100%;
     border: none;
@@ -21,6 +44,7 @@
     border-radius: 6px;
     outline: none;
     display: flex;
+    /* padding: 0.625rem 1rem; */
 }
 
 .add-note .note-text {
@@ -33,4 +57,5 @@
     cursor: pointer;
     justify-self: end;
     padding-inline: 2rem;
+    min-height: 44px;
 }

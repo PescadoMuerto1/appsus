@@ -1,16 +1,30 @@
 
-const { useState, useEffect, Fragment } = React
+const { useState, useEffect, Fragment, useRef } = React
 
 import { NoteList } from '../cmps/NoteList.jsx'
 import { AddNote } from '../cmps/AddNote.jsx'
 import { noteService } from '../services/note.service.js'
+import { AddNoteBar } from '../cmps/AddNoteBar.jsx'
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
+    const [isEdit, setIsEdit] = useState(null)
+    const [emptyNote, setEmptyNote] = useState(null)
+    const editMode = useRef(null)
+
 
     useEffect(() => {
         loadNotes()
     }, [])
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (!editMode.current.contains(event.target)) {
+            setEmptyNote(false)
+          }
+        }
+        document.addEventListener("mousedown", handleClickOutside)
+      }, [editMode])
 
     function loadNotes() {
         noteService.query()
@@ -53,12 +67,24 @@ export function NoteIndex() {
             .catch(console.error)
     }
 
+    function onAddNote(type) {
+        setEmptyNote(noteService.getEmptyNote(type))
+    }
+
+    // const closeAddMode = (e)=>{
+    //     if(emptyNote && !editMode.current?.contains(e.target)){
+    //       setEmptyNote(false)
+    //     }
+    // }
+
     if (!notes) return <div>loading...</div>
     return (
         <main className='main-notes main-notes-layout'>
-            <div>
-                <AddNote onSaveNote={onSaveNote} />
+                {!emptyNote && <AddNoteBar onAddNote={onAddNote}/>}
+            <div ref={editMode}>
+                {emptyNote &&  <AddNote onSaveNote={onSaveNote} emptyNote={emptyNote} />}
             </div>
+            
             <div className='content-layout'>
                 <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} />
                 <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} />

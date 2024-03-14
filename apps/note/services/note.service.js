@@ -45,8 +45,9 @@ function save(note) {
     }
 }
 
-function getEmptyNote() {
+function getEmptyNote(type) {
     return {
+        type,
         title: "",
         text: "",
         img: "",

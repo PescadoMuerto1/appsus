@@ -1,9 +1,9 @@
-import { NotePreview } from "./NotePreview.jsx";
+import { NotePreview } from "./NotePreview.jsx"
 
 export function NoteList({ notes, onRemoveNote, onArchiveNote, onPinNote }) {
 
    return (
-      <ul className="note-list notes-list-layout">
+      <ul className="note-list notes-list-layout clean-list">
          {
             notes.map(note =>
                <li className='note-card' key={note.id}>
