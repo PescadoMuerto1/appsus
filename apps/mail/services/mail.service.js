@@ -9,6 +9,8 @@ const loggedinUser = {
     fullname: 'Peter Pan'
 }
 
+// var getUnreadCount
+
 _createMails()
 
 export const mailService = {
@@ -21,13 +23,16 @@ export const mailService = {
     getDefaultSort,
     getFilterFromParams,
     getSortFromParams,
-    getUser
+    getUser,
+    // getUnreadCount
 }
 
 window.ms = mailService
 function query(filterBy = getDefaultFilter(), sortBy = getDefaultSort()) {
+    let unreadCount
     return storageService.query(MAIL_KEY)
         .then(mails => {
+            unreadCount = mails.reduce((acc, mail) => (!mail.isRead && mail.to === loggedinUser.mail && !mail.removedAt)? acc + 1 : acc, 0)
             if (filterBy.folder === 'inbox') {
                 mails = mails.filter(mail => mail.to === loggedinUser.mail && !mail.removedAt)
             }
@@ -63,9 +68,16 @@ function query(filterBy = getDefaultFilter(), sortBy = getDefaultSort()) {
             else if (sortBy.sortByTitle) {
                 mails.sort((mail1, mail2) => (mail1.subject.localeCompare(mail2.subject) * sortBy.sortByTitle))
             }
-            return mails
+            return {mails, unreadCount}
         })
 }
+
+// function getUnreadCount() {
+//     storageService.query(MAIL_KEY)
+//         .then(mails => {
+//             return mails.reduce((acc, mail) => !mail.isRead ? acc + 1 : acc, 0)
+//         })
+// }
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)

@@ -4,8 +4,7 @@ import { MailPreview } from "./MailPreview.jsx";
 
 export function MailList() {
     const [mails, setMails, onDeleteMail, onMailSelect, onToggleProperty] = useOutletContext()
-    { console.log('mails:', mails) }
-    if (!mails) return <div><img src="assets/img/planeloader.gif"/></div>
+    if (!mails) return <div><img src="assets/img/planeloader.gif" /></div>
     return <table className="mail-list">
         <tbody>
             { mails.map(mail =>
@@ -13,9 +12,9 @@ export function MailList() {
                     onDeleteMail={ onDeleteMail }
                     onMailSelect={ onMailSelect }
                     onToggleProperty={ onToggleProperty }
-                />
-            )
-            }
+                    />
+                    )
+                }
         </tbody>
     </table >
 }
