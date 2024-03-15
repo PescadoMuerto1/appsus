@@ -46,6 +46,7 @@
     display: grid;
     grid-auto-flow: column;
     place-items: center;
+    transition: opacity 0.4s;
 }
 
 .note-actions li {
@@ -58,4 +59,8 @@
 
 .note-actions i {
     font-size: 1rem;
+}
+
+.note-actions:hover {
+    opacity: 1;
 }

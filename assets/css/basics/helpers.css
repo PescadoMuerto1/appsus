@@ -39,3 +39,7 @@
 .pinned {
     color: var(--pinned-color); 
 }
+
+.transparent {
+    opacity: 0;
+}
