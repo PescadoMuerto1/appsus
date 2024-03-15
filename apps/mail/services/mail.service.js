@@ -18,15 +18,14 @@ export const mailService = {
     save,
     getEmptyMail,
     getDefaultFilter,
+    getDefaultSort,
     getFilterFromParams,
-    setFilterBy,
-    addReview,
-    getEmptyReview,
+    getSortFromParams,
     getUser
 }
 
 window.ms = mailService
-function query(filterBy = getDefaultFilter()) {
+function query(filterBy = getDefaultFilter(), sortBy = getDefaultSort()) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
             if (filterBy.folder === 'inbox') {
@@ -57,6 +56,12 @@ function query(filterBy = getDefaultFilter()) {
             }
             if (filterBy.to) {
                 mails = mails.filter(mail => mail.to === filterBy.to)
+            }
+            if (sortBy.sortBySentAt) {
+                mails.sort((mail1, mail2) => (mail1.sentAt - mail2.sentAt) * sortBy.sortBySentAt)
+            }
+            else if (sortBy.sortByTitle) {
+                mails.sort((mail1, mail2) => (mail1.subject.localeCompare(mail2.subject) * sortBy.sortByTitle))
             }
             return mails
         })
@@ -108,6 +113,12 @@ function getDefaultFilter() {
     }
 }
 
+function getDefaultSort() {
+    return {
+        sortBySentAt: -1
+    }
+}
+
 function getFilterFromParams(searchParams = {}) {
     const defaultFilter = getDefaultFilter()
     return {
@@ -121,23 +132,10 @@ function getFilterFromParams(searchParams = {}) {
     }
 }
 
-function setFilterBy(filterBy = {}) {
-    if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
-    if (filterBy.minSpeed !== undefined) gFilterBy.minSpeed = filterBy.minSpeed
-    return gFilterBy
-}
-
-function addReview(mail, review) {
-
-    if (!mail.reviews) mail.reviews = []
-    mail.reviews.push({ ...review, id: utilService.makeId() })
-    console.log('mail:', mail)
-    return save(mail)
-
-}
-
-function getEmptyReview() {
-    return { fullname: '', rating: 3, readOn: new Date().toISOString().substring(0, 10) }
+function getSortFromParams(searchParams = {}) {
+    if (searchParams.get('sortBySentAt')) return { sortBySentAt: +searchParams.get('sortBySentAt') }
+    else if (searchParams.get('sortByTitle')) return { sortByTitle: +searchParams.get('sortByTitle') }
+    else return getDefaultSort()
 }
 
 function _setNextPrevMailId(mail) {

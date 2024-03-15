@@ -12,6 +12,7 @@ export function MailIndex() {
 
     const [mails, setMails] = useState(null)
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromParams(searchParams))
+    const [sortBy, setSortBy] = useState(mailService.getSortFromParams(searchParams))
 
     const userRef = useRef()
     const navigate = useNavigate()
@@ -26,33 +27,40 @@ export function MailIndex() {
         const filter = mailService.getFilterFromParams(searchParams)
         let flag = false
         for (const key in filter) {
-            console.log('filter[key]:', key, filter[key])
-            console.log('filterBy[key]:', key, filterBy[key])
+            // console.log('filter[key]:', key, filter[key])
+            // console.log('filterBy[key]:', key, filterBy[key])
             if (filter[key] !== filterBy[key]) {
                 flag = true
                 break
             }
         }
-
-
         if (flag) {
-            console.log('flag:', flag)
+            // console.log('flag:', flag)
             setFilterBy(mailService.getFilterFromParams(searchParams))
         }
+
+        const sort = mailService.getSortFromParams(searchParams)
+        console.log('sort:', sort)
+        console.log('sortBy:', sortBy)
+        if (sort.sortBySentAt && sort.sortBySentAt !== sortBy.sortBySentAt) setSortBy(sort)
+        else if (sort.sortByTitle && sort.sortByTitle !== sortBy.sortByTitle) setSortBy(sort)
+
+
     }, [searchParams])
+
 
     useEffect(() => {
         console.log('filterBy:', filterBy)
 
-        setSearchParams(getCleanFilter())
+        setSearchParams(getCleanParams())
         console.log('searchParams:', searchParams.get('folder'))
 
         loadMails()
-    }, [filterBy])
+    }, [filterBy, sortBy])
 
     function loadMails() {
         // mailService.query(filterBy)
-        mailService.query(filterBy)
+        mailService.query(filterBy, sortBy)
             .then(mails => {
                 console.log('mails from load:', mails)
                 setMails(mails)
@@ -60,12 +68,12 @@ export function MailIndex() {
             .catch(err => console.log('err:', err))
     }
 
-    function getCleanFilter() {
-        const cleanFilter = {}
+    function getCleanParams() {
+        const cleanParams = { ...sortBy }
         for (const key in filterBy) {
-            if (filterBy[key]) cleanFilter[key] = filterBy[key]
+            if (filterBy[key]) cleanParams[key] = filterBy[key]
         }
-        return cleanFilter
+        return cleanParams
     }
 
     function onDeleteMail(ev, mailToDelete) {
@@ -128,7 +136,7 @@ export function MailIndex() {
         <MailSideBar
             unreadCount={ mails ? mails.reduce((acc, mail) => !mail.isRead ? acc + 1 : acc, 0) : '' } />
         <section className="mail-index">
-            <Outlet context={ [mails, setMails, onDeleteMail, onMailSelect, onToggleProperty, filterBy, onSetFilter] } />
+            <Outlet context={ [mails, setMails, onDeleteMail, onMailSelect, onToggleProperty, filterBy, onSetFilter, sortBy, setSortBy] } />
             {/* <MailFilter />
             { !mails && <div><img src="assets/img/planeloader.gif"/></div> }
             { mails && <MailList mails={ mails } onDeleteMail={ onDeleteMail } onMailSelect={ onMailSelect } onToggleProperty={ onToggleProperty } /> } */}
