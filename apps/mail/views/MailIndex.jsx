@@ -113,7 +113,7 @@ export function MailIndex() {
         <section className="mail-index">
         <Outlet context={[mails, setMails, onDeleteMail, onMailSelect, onToggleProperty]}/>
             {/* <MailFilter />
-            { !mails && <div>loading...</div> }
+            { !mails && <div><img src="assets/img/planeloader.gif"/></div> }
             { mails && <MailList mails={ mails } onDeleteMail={ onDeleteMail } onMailSelect={ onMailSelect } onToggleProperty={ onToggleProperty } /> } */}
         </section >
     </Fragment>

@@ -16,7 +16,7 @@ export function MailDetails() {
             .then(mail => setMail(mail))
     }
 
-    if (!mail) return <div>loading...</div>
+    if (!mail) return <div><img src="assets/img/planeloader.gif"/></div>
     return <section>
         <h2>{ mail.subject }</h2>
         <span>{ mail.from }</span>
