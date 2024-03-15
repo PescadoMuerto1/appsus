@@ -1,1 +1,4 @@
  /* note index */
+.main-notes{
+    background-color: var(--bg-color);
+}

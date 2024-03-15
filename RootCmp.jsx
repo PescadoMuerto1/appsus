@@ -17,7 +17,7 @@ import { MailFilter } from "./apps/mail/cmps/MailFilter.jsx"
 export function App() {
     return <Router>
         <section className="app grid main-layout">
-            <AppHeader />
+            {/* <AppHeader /> */}
             <main className="main-content full grid main-layout">
                 <Routes>
                     <Route path="/" element={ <Home /> } />

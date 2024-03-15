@@ -24,6 +24,8 @@
 @import './apps/note/views/NoteIndex.css';
 
 /* Cmps */
+@import './apps/note/cmps/NoteHeader.css';
+@import './apps/note/cmps/MenuNav.css';
 @import './apps/note/cmps/AddNote.css';
 @import './apps/note/cmps/NoteList.css';
 @import './apps/note/cmps/NotePreview.css';

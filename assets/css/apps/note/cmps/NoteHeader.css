@@ -1,0 +1,64 @@
+.note-header {
+    height: 4rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: max-content max-content auto max-content max-content;
+    border-block-end: 1px solid var(--border-color);
+    padding: 0.5rem;
+}
+
+.note-header div {
+    height: 100%;
+}
+
+.note-header img {
+    max-height: 2.7rem;
+}
+
+.note-header h3{
+    display: grid;
+    place-content: center;
+    font-size: 1.375rem;
+    margin-inline-start: 0.8rem;
+    font-family: Product sans;
+    color: var(--note-logo-txt-clr);
+}
+
+.note-header i {
+    height: 3.0003rem;
+    width: 3.0003rem;
+    display: grid;
+    place-content: center;
+    font-size: 1.2rem;
+}
+
+.note-header .search {
+    width: 50vw;
+    justify-self: center;
+    background-color: var(--note-search-bcg);
+    border: none;
+    padding-inline: 1.5rem;
+    font-size: 1rem;
+    border-radius: 0.60rem;
+    outline: none;
+}
+
+.note-header .search:focus {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: var(--bg-color);
+}
+
+.note-header svg {
+   height: 1.5rem;
+   align-self: center;
+   
+}
+
+.note-header .svg-container{
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 3.0003rem;
+    width: 3.0003rem;
+}
+

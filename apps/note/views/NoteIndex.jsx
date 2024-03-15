@@ -1,11 +1,13 @@
 
 const { useState, useEffect, Fragment, useRef } = React
 
+import { NoteSideBar } from '../cmps/NoteSideBar.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
 import { AddNote } from '../cmps/AddNote.jsx'
 import { noteService } from '../services/note.service.js'
 import { AddNoteBar } from '../cmps/AddNoteBar.jsx'
 import { EditNoteModal } from '../cmps/EditNoteModal.jsx'
+import { NoteHeader } from '../cmps/NoteHeader.jsx'
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
@@ -20,14 +22,14 @@ export function NoteIndex() {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            
+
             if (emptyNote && editModeRef.current && !editModeRef.current.contains(event.target)) {
                 console.log('inside of ref')
                 setEmptyNote(false)
             }
         }
 
-        if(!emptyNote)document.removeEventListener("mousedown", handleClickOutside)
+        if (!emptyNote) document.removeEventListener("mousedown", handleClickOutside)
         else document.addEventListener("mousedown", handleClickOutside)
         return () => document.removeEventListener("mousedown", handleClickOutside)
 
@@ -86,16 +88,20 @@ export function NoteIndex() {
     if (!notes) return <div>loading...</div>
     return (
         <main className='main-notes main-notes-layout'>
-            {!emptyNote && <AddNoteBar onAddNote={onAddNote} />}
-            <div ref={editModeRef}>
-                {emptyNote && <AddNote onSaveNote={onSaveNote} noteToEdit={emptyNote} />}
-            </div>
+            <NoteHeader />
+            <NoteSideBar />
+            <div className='note-content'>
+                {!emptyNote && <AddNoteBar onAddNote={onAddNote} />}
+                <div ref={editModeRef}>
+                    {emptyNote && <AddNote onSaveNote={onSaveNote} noteToEdit={emptyNote} />}
+                </div>
 
-            {notes.length && <div className='content-layout'>
-                <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
-                <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
-            </div>}
-            {selectedNote && <EditNoteModal noteToEdit={selectedNote} onSaveNote={onSaveNote} setSelectNote={setSelectedNote} />}
+                {notes.length && <div className='content-layout'>
+                    <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
+                    <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
+                </div>}
+                {selectedNote && <EditNoteModal noteToEdit={selectedNote} onSaveNote={onSaveNote} setSelectNote={setSelectedNote} />}
+            </div>
         </main>
     )
 }

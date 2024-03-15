@@ -29,7 +29,7 @@
 }
 
 .active {
-    color: var(--clr2);
+    /* color: var(--clr2); */
 }
 
 .hidden {

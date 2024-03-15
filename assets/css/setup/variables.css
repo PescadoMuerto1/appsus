@@ -3,9 +3,13 @@
     --bg-color: #ffffff;
     --pinned-color: brown;
     --backdrop-color: rgba(128, 128, 128, 0.588);
+    --nav-menu-bcg: #F9FAFF;
+    --nav-menu-border: #EBEDF7;
 
     --read-bg-color:  #f2f6fc;
     --border-color: #80808052;
     --note-border-color: #E0E0E0;
     --note-text-color: #757575;
+    --note-logo-txt-clr: #5f6368;
+    --note-search-bcg: #F6F8FC;
 }
