@@ -1,3 +1,13 @@
 .mail-index{
     grid-column: 2;
+    background-color: #fff;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    height: 100%;
+}
+
+.action-btn{
+    background: none;
+    border: none;
+    font-size: 1rem;
 }

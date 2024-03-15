@@ -1,0 +1,41 @@
+.mail-details {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 1rem 1.5rem;
+}
+
+.mail-details .actions {
+    gap: 0.5rem;
+    margin-block: 1rem;
+}
+
+.mail-details .actions button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+}
+
+.mail-details h2 {
+    margin-bottom: 0.7rem;
+}
+
+.mail-details .sender {
+    margin-block: 0.7rem;
+}
+
+.mail-details .body {
+    margin-bottom: 1rem;
+}
+
+.mail-details .answers button {
+    border-radius: 3em;
+    padding: 0.5rem 1rem;
+    border: 1px solid gray;
+    background: #fff;
+    margin-block: 0.3rem;
+    margin-inline-end: 0.7rem;
+}
+
+.mail-details .answers button:hover {
+    background-color: #eee;
+}

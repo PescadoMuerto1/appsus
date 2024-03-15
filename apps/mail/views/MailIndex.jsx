@@ -45,7 +45,6 @@ export function MailIndex() {
     function loadMails() {
         mailService.query(filterBy, sortBy)
             .then(({ mails, unreadCount }) => {
-                console.log('mails from load:', mails)
                 setMails(mails)
                 setUnreadCount(unreadCount)
             })
@@ -82,11 +81,14 @@ export function MailIndex() {
     function onMailSelect(mail) {
         if (!mail.isRead) {
             mail.isRead = true
+            setUnreadCount(prevCount => prevCount - 1)
             mailService.save(mail)
-                .then(mail => console.log('selected mail:', mail))
+                .then(mail => {
+                    navigate(`/mail/read/${mail.id}?folder=${filterBy.folder}`)
+                })
                 .catch(err => console.log('err:', err))
         }
-        navigate(`/mail/read/${mail.id}`)
+        else navigate(`/mail/read/${mail.id}?folder=${filterBy.folder}`)
     }
 
     function onToggleProperty(ev, mailToToggle, key) {
@@ -121,7 +123,7 @@ export function MailIndex() {
         <MailSideBar
             unreadCount={ mails ? unreadCount : '' } />
         <section className="mail-index">
-            <Outlet context={ [mails, setMails, onDeleteMail, onMailSelect, onToggleProperty, filterBy, onSetFilter, sortBy, setSortBy] } />
+            <Outlet context={ [mails, setMails, onDeleteMail, onMailSelect, onToggleProperty, filterBy, onSetFilter, sortBy, setSortBy, setUnreadCount] } />
         </section >
     </Fragment>
 }

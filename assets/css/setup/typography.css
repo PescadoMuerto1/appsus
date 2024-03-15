@@ -1,21 +1,29 @@
 @font-face {
     font-family: Roboto;
-    src: url(./../../fonts/Roboto-Regular.ttf);
-    font-weight: normal;
-}
-
-@font-face {
-    font-family: Roboto;
     src: url(./../../fonts/Roboto-Bold.ttf);
     font-weight: bold;
 }
+
 @font-face {
     font-family: Roboto;
     src: url(./../../fonts/Roboto-Black.ttf);
     font-weight: bolder;
 }
+
 @font-face {
     font-family: Roboto;
-    src: url(./../../fonts/Roboto-Light.ttf);
-    font-weight: lighter;
+    src: url(./../../fonts/Roboto-Regular.ttf);
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Product Sans;
+    src: url(./../../fonts/Product-Sans-Regular.ttf);
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Product Sans;
+    src: url(./../../fonts/Product-Sans-Bold.ttf);
+    font-weight: bold;
 }
