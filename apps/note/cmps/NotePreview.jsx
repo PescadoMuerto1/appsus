@@ -32,7 +32,7 @@ export function NotePreview({ note, onSelectNote, onSaveNote, onArchiveNote, onP
                         <NoteTodo key={index} todo={todo} index={index} onCheckTodo={onCheckTodo} />
                     )}
                 </ul>}
-            <ul className="note-actions clean-list">
+            <ul className="note-actions clean-list transparent">
                 <li key={4242} onClick={(ev) => onRemoveNote(ev, note.id)}> <i className="fa-solid fa-trash-can"></i></li>
                 <li key={43242} onClick={onOpenColorPicker}> <i className="fa-solid fa-palette"></i></li>
                 <li key={42} onClick={(ev) => onPinNote(ev, note)}> <i className={`fa-solid fa-thumbtack${note.isPinned ? ' pinned' : ''}`}></i></li>
