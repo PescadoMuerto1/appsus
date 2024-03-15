@@ -1,25 +1,7 @@
 .mail-list {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-
+    
+    width: calc(100% - 1rem);
 }
 
-.mail-list tr {
-    border-block: 1px solid var(--border-color);
-    cursor: pointer;
 
-    transition: box-shadow .08s linear;
-}
 
-.mail-list tr:hover {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
-.mail-list td {
-    padding: 0.5rem;
-    margin: 0.3rem;
-
-    background-color: var(--read-bg-color);
-
-}

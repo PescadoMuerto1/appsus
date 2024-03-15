@@ -40,13 +40,13 @@ export function MailDetails() {
         </span>
         <h2>{ mail.subject }</h2>
         <span className="sender">From: { mail.from }</span>
-        <div class="body">
+        <div className="body">
             { mail.body }
         </div>
 
-        <div class="answers">
-            <button disabled><i class="fa-solid fa-reply"></i> Reply</button>
-            <button disabled>Forward <i class="fa-solid fa-share"></i></button>
+        <div className="answers">
+            <button disabled><i className="fa-solid fa-reply"></i> Reply</button>
+            <button disabled>Forward <i className="fa-solid fa-share"></i></button>
         </div>
     </section>
 
