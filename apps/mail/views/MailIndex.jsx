@@ -45,7 +45,6 @@ export function MailIndex() {
     function loadMails() {
         mailService.query(filterBy, sortBy)
             .then(({ mails, unreadCount }) => {
-                console.log('mails from load:', mails)
                 setMails(mails)
                 setUnreadCount(unreadCount)
             })
@@ -85,7 +84,6 @@ export function MailIndex() {
             setUnreadCount(prevCount => prevCount - 1)
             mailService.save(mail)
                 .then(mail => {
-                    console.log('selected mail:', mail)
                     navigate(`/mail/read/${mail.id}?folder=${filterBy.folder}`)
                 })
                 .catch(err => console.log('err:', err))
