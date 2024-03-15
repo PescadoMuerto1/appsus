@@ -11,21 +11,27 @@ export function NoteIndex() {
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
     const [emptyNote, setEmptyNote] = useState(null)
-    const editMode = useRef(null)
-
+    const editModeRef = useRef(null)
 
     useEffect(() => {
         loadNotes()
+        console.log('load notes');
     }, [])
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (!editMode.current.contains(event.target)) {
+            
+            if (emptyNote && editModeRef.current && !editModeRef.current.contains(event.target)) {
+                console.log('inside of ref')
                 setEmptyNote(false)
             }
         }
-        document.addEventListener("mousedown", handleClickOutside)
-    }, [editMode])
+
+        if(!emptyNote)document.removeEventListener("mousedown", handleClickOutside)
+        else document.addEventListener("mousedown", handleClickOutside)
+        return () => document.removeEventListener("mousedown", handleClickOutside)
+
+    }, [emptyNote])
 
     function loadNotes() {
         noteService.query()
@@ -57,7 +63,7 @@ export function NoteIndex() {
     function onSaveNote(note) {
         noteService.save(note)
             .then(loadNotes)
-            .then(() => {if(selectedNote) setSelectedNote('')})
+            .then(() => { if (selectedNote) setSelectedNote('') })
             .catch(console.error)
     }
 
@@ -81,14 +87,14 @@ export function NoteIndex() {
     return (
         <main className='main-notes main-notes-layout'>
             {!emptyNote && <AddNoteBar onAddNote={onAddNote} />}
-            <div ref={editMode}>
+            <div ref={editModeRef}>
                 {emptyNote && <AddNote onSaveNote={onSaveNote} noteToEdit={emptyNote} />}
             </div>
 
-            <div className='content-layout'>
+            {notes.length && <div className='content-layout'>
                 <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
-                <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote}/>
-            </div>
+                <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
+            </div>}
             {selectedNote && <EditNoteModal noteToEdit={selectedNote} onSaveNote={onSaveNote} setSelectNote={setSelectedNote} />}
         </main>
     )

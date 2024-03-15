@@ -76,7 +76,7 @@ function _createNotes() {
             img: 'assets/img/DSC00157.jpg',
             title: 'hello world',
             text: 'lajlkfjds sdlhflksa dfhlakh f asdfhklas;hf; ashlkas ',
-            todos: [{ id: 'sgh3', text: 'todo 1', isChecked: true }],
+            todos: [{ id: 'sgasfdh3', text: 'todo 1', isChecked: true }],
             isPinned: false,
             style: {
                 backgroundColor: '#ffff'
@@ -88,7 +88,7 @@ function _createNotes() {
             id: 'shkf87s',
             img: 'assets/img/a (1).jpg',
             title: 'bye world',
-            todos: [{ id: 'sgh3', text: 'todo 1', isChecked: true }, { id: 'sg43', text: 'todo 2', isChecked: false }],
+            todos: [{ id: 'sghrrt3', text: 'todo 1', isChecked: true }, { id: 's56q2g43', text: 'todo 2', isChecked: false }],
             isPinned: true,
             style: {
                 backgroundColor: 'lightblue'
@@ -102,7 +102,7 @@ function _createNotes() {
             img: '',
             title: 'bye world',
             text: 'lajlkfjds sdlhflksa dfhlakh f asdfhklas;hf; ashlkas ',
-            todos: [{ id: 'sgh3', text: 'todo 1', isChecked: true }, { id: 'sg43', text: 'todo 2', isChecked: false }],
+            todos: [{ id: 'sgsh3', text: 'todo 1', isChecked: true }, { id: 's564g43', text: 'todo 2', isChecked: false }],
             isPinned: false,
             style: {
                 backgroundColor: '#ffff'

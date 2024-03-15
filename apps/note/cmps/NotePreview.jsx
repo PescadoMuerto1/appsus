@@ -1,13 +1,20 @@
-import { NoteTodo } from "./NoteTodo.jsx";
+const { useState, useRef, useEffect } = React
 
-export function NotePreview({ note, onSelectNote, onSaveNote }) {
-    console.log('note preview', note);
+import { NoteTodo } from "./NoteTodo.jsx";
+import { ColorPicker } from "./ColorPicker.jsx"
+
+export function NotePreview({ note, onSelectNote, onSaveNote, onArchiveNote, onPinNote, onRemoveNote }) {
+    const [colorPicker, setColorPicker] = useState(null)
 
     function onCheckTodo(ev, index) {
-        console.log('hiiiiii')
         ev.stopPropagation()
         note.todos[index].isChecked = ev.target.checked
         onSaveNote(note)
+    }
+
+    function onOpenColorPicker(ev) {
+        ev.stopPropagation()
+        setColorPicker(true)
     }
 
     return (
@@ -22,10 +29,17 @@ export function NotePreview({ note, onSelectNote, onSaveNote }) {
             {note.type.includes('todo') &&
                 <ul className='note-todos-list clean-list'>
                     {note.todos.map((todo, index) =>
-                        <NoteTodo todo={todo} index={index} onCheckTodo={onCheckTodo} />
+                        <NoteTodo key={index} todo={todo} index={index} onCheckTodo={onCheckTodo} />
                     )}
                 </ul>}
-
+            <ul className="note-actions clean-list">
+                <li key={4242} onClick={(ev) => onRemoveNote(ev, note.id)}> <i className="fa-solid fa-trash-can"></i></li>
+                <li key={43242} onClick={onOpenColorPicker}> <i className="fa-solid fa-palette"></i></li>
+                <li key={42} onClick={(ev) => onPinNote(ev, note)}> <i className={`fa-solid fa-thumbtack${note.isPinned ? ' pinned' : ''}`}></i></li>
+                <li key={46} onClick={(ev) => onArchiveNote(ev, note)}> <i className="fa-solid fa-box-archive"></i></li>
+            </ul>
+            {colorPicker && <ColorPicker note={note} colorPicker={colorPicker} setColorPicker={setColorPicker} onSaveNote={onSaveNote} />
+            }
         </article>
     )
 }
