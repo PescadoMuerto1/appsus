@@ -23,7 +23,22 @@ export function MailIndex() {
     }, [])
 
     useEffect(() => {
-        setFilterBy(mailService.getFilterFromParams(searchParams))
+        const filter = mailService.getFilterFromParams(searchParams)
+        let flag = false
+        for (const key in filter) {
+            console.log('filter[key]:', key, filter[key])
+            console.log('filterBy[key]:', key, filterBy[key])
+            if (filter[key] !== filterBy[key]) {
+                flag = true
+                break
+            }
+        }
+
+
+        if (flag) {
+            console.log('flag:', flag)
+            setFilterBy(mailService.getFilterFromParams(searchParams))
+        }
     }, [searchParams])
 
     useEffect(() => {
@@ -36,6 +51,7 @@ export function MailIndex() {
     }, [filterBy])
 
     function loadMails() {
+        // mailService.query(filterBy)
         mailService.query(filterBy)
             .then(mails => {
                 console.log('mails from load:', mails)
@@ -102,16 +118,17 @@ export function MailIndex() {
     }
 
 
+    function onSetFilter(fieldsToUpdate) {
+        console.log('fieldsToUpdate:', fieldsToUpdate)
+        setFilterBy({ ...filterBy, ...fieldsToUpdate })
 
-    function onChangeFolder(folder) {
-        setFilterBy(prevFilter => ({ ...prevFilter, folder }))
     }
 
     return <Fragment>
-        <MailSideBar onChangeFolder={ onChangeFolder }
+        <MailSideBar
             unreadCount={ mails ? mails.reduce((acc, mail) => !mail.isRead ? acc + 1 : acc, 0) : '' } />
         <section className="mail-index">
-        <Outlet context={[mails, setMails, onDeleteMail, onMailSelect, onToggleProperty]}/>
+            <Outlet context={ [mails, setMails, onDeleteMail, onMailSelect, onToggleProperty, filterBy, onSetFilter] } />
             {/* <MailFilter />
             { !mails && <div><img src="assets/img/planeloader.gif"/></div> }
             { mails && <MailList mails={ mails } onDeleteMail={ onDeleteMail } onMailSelect={ onMailSelect } onToggleProperty={ onToggleProperty } /> } */}

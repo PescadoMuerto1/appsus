@@ -8,7 +8,7 @@ const loggedinUser = {
     mail: 'peter@appsus.com',
     fullname: 'Peter Pan'
 }
-// var gFilterBy = { title: '' }
+
 _createMails()
 
 export const mailService = {
@@ -48,8 +48,9 @@ function query(filterBy = getDefaultFilter()) {
                 const regex = new RegExp(filterBy.txt, 'i')
                 mails = mails.filter(mail => regex.test(mail.subject) || regex.test(mail.body))
             }
-            if (filterBy.isRead !== null) {
-                mails = mails.filter(mail => mail.isRead === filterBy.isRead)
+            if (filterBy.isRead) {
+                if (filterBy.isRead === 'read') mails = mails.filter(mail => mail.isRead)
+                else if (filterBy.isRead === 'unread') mails = mails.filter(mail => !mail.isRead)
             }
             if (filterBy.from) {
                 mails = mails.filter(mail => mail.from === filterBy.from)
