@@ -4,7 +4,12 @@
 }
 
 .main-layout {
-    grid-template-columns: 16rem 80vw 1fr;
+    grid-template-columns: var(--sideBarWidth) minmax(80vw, 1fr) minmax(5px, 3rem);
+
+}
+
+.main-layout{
+        transition: grid-template-columns 300ms;
 
 }
 
