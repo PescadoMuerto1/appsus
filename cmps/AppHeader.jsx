@@ -7,7 +7,7 @@ import { NavMenu } from "./NavMenu.jsx"
 export function AppHeader() {
     const [isNavMenu, setIsNavMenu] = useState(null)
 
-
+    
     return (
         <header className="app-header full">
             <div >
