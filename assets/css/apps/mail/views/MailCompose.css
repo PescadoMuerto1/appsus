@@ -8,7 +8,7 @@
     
 }
 
-input, textarea{
+.mail-compose input, .mail-compose textarea{
     font-family: Roboto;
     font-size: 0.875rem;
     padding: 0.3rem;
