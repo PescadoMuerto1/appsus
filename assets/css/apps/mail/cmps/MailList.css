@@ -2,7 +2,29 @@
     grid-area: mails;
     width: 100%;
     background-color: #fff;
+    flex-wrap: nowrap;
+    overflow: hidden auto;
 }
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #fff;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #eee;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #ddd;
+}
+
 
 
 

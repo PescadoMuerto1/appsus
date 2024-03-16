@@ -20,14 +20,17 @@ export function MailFilter() {
     }
 
 
-    return <section className="mail-filter">
-
-
-        <button onClick={ () => onSetFilter({ isRead: 'read' }) }>Read</button>
-        <button onClick={ () => onSetFilter({ isRead: 'unread' }) }>Unread</button>
-        <button onClick={ () => onSetFilter({ isRead: '' }) }>All</button>
-
-        <button onClick={ () => changeSort('title') }>Title { sortByTitle && sortByTitle === 1 ? arrows.up : arrows.down }</button>
-        <button onClick={ () => changeSort('sentAt') }>Time Sent { sortBySentAt && sortBySentAt === 1 ? arrows.up : arrows.down }</button>
+    return <section className="mail-filter flex">
+        <div>
+            Show:
+            <button className="pill-btn" onClick={ () => onSetFilter({ isRead: 'read' }) }>Read</button>
+            <button className="pill-btn" onClick={ () => onSetFilter({ isRead: 'unread' }) }>Unread</button>
+            <button className="pill-btn" onClick={ () => onSetFilter({ isRead: '' }) }>All</button>
+        </div>
+        <div>
+            Filter by:
+            <button className="pill-btn" onClick={ () => changeSort('title') }>Title { sortByTitle && sortByTitle === 1 ? arrows.up : arrows.down }</button>
+            <button className="pill-btn" onClick={ () => changeSort('sentAt') }>Time Sent { sortBySentAt && sortBySentAt === 1 ? arrows.up : arrows.down }</button>
+        </div>
     </section>
 }

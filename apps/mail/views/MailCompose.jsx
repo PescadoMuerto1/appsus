@@ -43,14 +43,16 @@ export function MailCompose() {
     }
 
     return <Fragment>
-        <section>
+        <section className="mail-compose">
             <form className="grid">
                 <input type="email" name="to" id="to" placeholder="To" value={ mail.value } onChange={ handleChange } />
                 <input type="text" name="subject" id="subject" placeholder="Subject" value={ mail.subject } onChange={ handleChange } />
                 <textarea id="body" name="body" rows="5" cols="33" placeholder="Content" value={ mail.body } onChange={ handleChange } />
-                <button onClick={ (ev) => onSend(ev, true) }>Send</button>
-                <button onClick={ (ev) => onSend(ev, false) }>Save for later</button>
-                <button onClick={ onSaveAsNote } >Save as note</button>
+                <div className="flex">
+                    <button className="pill-btn" onClick={ (ev) => onSend(ev, true) }>Send <i className="fa-regular fa-paper-plane"></i></button>
+                    <button className="pill-btn" onClick={ (ev) => onSend(ev, false) }>Save for later <i className="fa-regular fa-paste"></i></button>
+                    <button className="pill-btn" onClick={ onSaveAsNote } >Save as note <i className="fa-regular fa-note-sticky"></i></button>
+                </div>
             </form>
         </section>
     </Fragment>

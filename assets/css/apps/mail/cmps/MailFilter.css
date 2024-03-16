@@ -6,4 +6,11 @@
     text-align: center;
 
     height: 3rem;
+    gap: 3rem;
+    justify-content:center;
+    align-items: center;
+}
+
+.mail-filter button:first-child{
+    margin-inline-start: 0.7rem;
 }
