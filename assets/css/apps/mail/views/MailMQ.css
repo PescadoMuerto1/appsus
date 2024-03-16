@@ -10,6 +10,7 @@
         "mails "
         ;
         position: relative;
+        grid-template-rows: 6rem calc(100vh - 10rem);
     }
 
     .mail-index.menu-open .sidebar{
@@ -24,6 +25,12 @@
         height: 100%;
         padding-inline-end: 0.7rem;
         transition: transform 300ms;
+    }
+
+    .mail-filter{
+        flex-direction: column;
+        gap: 0.2rem;
+        height: 6rem;
     }
 
     .mail-list .mail-row{
