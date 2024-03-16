@@ -45,9 +45,9 @@ export function NoteEditForm({ onSaveNote, noteToEdit }) {
                 value={note.text}
                 placeholder="Take a note"
             />}
-            {note.type.includes('image') && <img
+            {note.type.includes('img') && <img
                 onChange={handleChange}
-                name='image'
+                name='img'
                 className='note-image'
                 src={note.img}
             />}

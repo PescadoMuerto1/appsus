@@ -60,3 +60,7 @@
     padding-inline: 2rem;
     min-height: 44px;
 }
+
+.add-note-bar input.hidden  {
+    display: none;
+}

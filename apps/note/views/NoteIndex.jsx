@@ -24,7 +24,7 @@ export function NoteIndex() {
         loadNotes()
         console.log('load notes', notes)
     }, [filterBy])
-   
+
     useEffect(() => {
         setFilterBy(noteService.getFilterFromParams(searchParams))
         loadNotes()
@@ -70,7 +70,8 @@ export function NoteIndex() {
 
     function onArchiveNote(ev, noteToArchive) {
         ev.stopPropagation()
-        noteToArchive.isArchived = true
+
+        noteToArchive.isArchived = noteToArchive.isArchived ? '' : true
         noteService.save(noteToArchive)
             .then(() => {
                 setNotes((prevNotes) => prevNotes.filter(note => note.id !== noteToArchive.id))
@@ -98,6 +99,22 @@ export function NoteIndex() {
         setEmptyNote(noteService.getEmptyNote(type))
     }
 
+    function onAddImg(ev) {
+        const reader = new FileReader()
+        reader.onload = ev => {
+            let newImg = new Image() 
+            newImg.src = ev.target.result
+            console.log(newImg); 
+            newImg.onload = () => {
+                const newNote = noteService.getEmptyNote('img')
+                newNote.img = newImg.src
+                setEmptyNote(newNote)
+            }
+        }
+        reader.readAsDataURL(ev.target.files[0]) 
+
+    }
+
     function onSelectNote(note) {
         setSelectedNote(note)
     }
@@ -108,7 +125,7 @@ export function NoteIndex() {
             <NoteHeader filterBy={filterBy} onSetFilter={onSetFilter} />
             <NoteSideBar />
             <div className='note-content'>
-                {!emptyNote && <AddNoteBar onAddNote={onAddNote} />}
+                {!emptyNote && <AddNoteBar onAddNote={onAddNote} onAddImg={onAddImg}/>}
                 <div ref={editModeRef}>
                     {emptyNote && <AddNote onSaveNote={onSaveNote} noteToEdit={emptyNote} />}
                 </div>
