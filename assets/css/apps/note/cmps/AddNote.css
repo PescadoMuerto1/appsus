@@ -1,12 +1,13 @@
 .add-note-container {
     display: grid;
     place-items: center;
+    width: 70%;
+    margin: 15px auto 25px auto;
 }
 
 .add-note {
     position: relative;
-    margin: 57px auto 16px auto;
-    width: 37.5rem;
+    width: 100%;
     display: grid;
     /* grid-template-rows: 2.75rem minmax(2.75rem, auto) 2.75rem; */
     place-items: center;
@@ -20,7 +21,7 @@
     width: 100%;
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: 4.5fr 0.5fr 0.5fr 0.5fr;
+    grid-template-columns: 4.5fr 0.5fr 0.5fr;
     min-height: 46px;    
 }
 
