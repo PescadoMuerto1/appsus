@@ -51,3 +51,5 @@
 @import './apps/mail/cmps/MailDetails.css';
 
 /******** ------ ********/
+
+@import './../../lib/animate.css'

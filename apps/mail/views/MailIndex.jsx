@@ -15,8 +15,13 @@ export function MailIndex() {
     const [unreadCount, setUnreadCount] = useState(null)
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromParams(searchParams))
     const [sortBy, setSortBy] = useState(mailService.getSortFromParams(searchParams))
+    const [isSideBar, setIsSideBar] = useState(true)
 
     const navigate = useNavigate()
+
+    useEffect(()=>{
+        document.documentElement.style.setProperty('--sideBarWidth', isSideBar ? '16rem' :'5rem');
+    },[isSideBar])
 
     useEffect(() => {
         const filter = mailService.getFilterFromParams(searchParams)
@@ -121,9 +126,9 @@ export function MailIndex() {
     }
 
     return <Fragment>
-        <MailHeader filterBy={ filterBy } onSetFilter={ onSetFilter } />
+        <MailHeader filterBy={ filterBy } onSetFilter={ onSetFilter } setIsSideBar={ setIsSideBar } />
         <MailSideBar
-            unreadCount={ mails ? unreadCount : '' } />
+            unreadCount={ mails ? unreadCount : '' } isSideBar={ isSideBar } />
         <section className="mail-index">
             <Outlet context={ [mails, setMails, onDeleteMail, onMailSelect, onToggleProperty, filterBy, onSetFilter, sortBy, setSortBy, setUnreadCount] } />
         </section >
