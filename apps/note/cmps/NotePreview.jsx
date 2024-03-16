@@ -1,4 +1,5 @@
 const { useState } = React
+const { useNavigate } = ReactRouter
 
 import { NoteTodo } from "./NoteTodo.jsx";
 import { ColorPicker } from "./ColorPicker.jsx"
@@ -14,7 +15,7 @@ export function NotePreview({ note, onSelectNote, onSaveNote, onArchiveNote, onP
 
     function onDuplicateNote(ev, note) {
         ev.stopPropagation()
-        onSaveNote({...note, id:''})
+        onSaveNote({ ...note, id: '' })
     }
 
     function onOpenColorPicker(ev) {
@@ -22,12 +23,21 @@ export function NotePreview({ note, onSelectNote, onSaveNote, onArchiveNote, onP
         setColorPicker(true)
     }
 
+    function onSendNote(note) {
+        ev.stopPropagation()
+        useNavigate
+    }
+
     return (
 
         <article
             className='note-preview note-layout'
-            onClick={() => onSelectNote(note)}
-        >
+            onClick={() => onSelectNote(note)}>
+
+            <li key={42} onClick={(ev) => onPinNote(ev, note)} title={`${note.isPinned ? 'Unpin note' : 'Pin note'}`}>
+                <i className={`fa-solid fa-thumbtack${note.isPinned ? ' pinned' : ''}`}></i>
+            </li>
+
             {note.img && <img src={note.img} alt="" />}
             {note.title && <h2>{note.title}</h2>}
             {note.text && <p>{note.text}</p>}
@@ -37,16 +47,14 @@ export function NotePreview({ note, onSelectNote, onSaveNote, onArchiveNote, onP
                         <NoteTodo key={index} todo={todo} index={index} onCheckTodo={onCheckTodo} />
                     )}
                 </ul>}
+
             <ul className="note-actions clean-list transparent">
-                <li key={4242} onClick={(ev) => onRemoveNote(ev, note.id)}> <i className="fa-solid fa-trash-can"></i></li>
-                <li key={4242} onClick={(ev) => onDuplicateNote(ev, note)}> <i className="fa-solid fa-clone"></i></li>
-                <li key={43242} onClick={onOpenColorPicker}> <i className="fa-solid fa-palette"></i></li>
-                <li key={42} onClick={(ev) => onPinNote(ev, note)}>
-                     <i className={`fa-solid fa-thumbtack${note.isPinned ? ' pinned' : ''}`}></i></li>
-                <li key={46} onClick={(ev) => onArchiveNote(ev, note)}>
-                     {!note.isArchived && <i className="fa-solid fa-box-archive"></i>}
-                     {note.isArchived && <i className="fa-solid fa-upload"></i>}
-                     </li>
+                <li key={4242} onClick={(ev) => onRemoveNote(ev, note.id)} title="Delete note"> <i className="fa-solid fa-trash-can"></i></li>
+                <li key={4242458} onClick={(ev) => onDuplicateNote(ev, note)} title="Duplicate note"> <i className="fa-solid fa-clone"></i></li>
+                <li key={43242} onClick={onOpenColorPicker} title="Background options"> <i className="fa-solid fa-palette"></i></li>
+                {!note.isArchived && <li key={46} onClick={(ev) => onArchiveNote(ev, note)} title="Archive"><i className="fa-solid fa-box-archive"></i></li>}
+                {note.isArchived && <li key={46} onClick={(ev) => onArchiveNote(ev, note)} title="Unarchive note"><i className="fa-solid fa-upload"></i></li>}
+                <li><i class="fa-solid fa-paper-plane"></i></li>
             </ul>
             {colorPicker && <ColorPicker note={note} colorPicker={colorPicker} setColorPicker={setColorPicker} onSaveNote={onSaveNote} />
             }
