@@ -13,14 +13,17 @@ export const noteService = {
     save,
     getEmptyNote,
     getDefaultFilter,
-    getEmptyTodo
+    getEmptyTodo,
+    getFilterFromParams
 }
 
 function query(filterBy = getDefaultFilter()) {
+    console.log(filterBy);
 
     return storageService.query(NOTE_KEY)
         .then(notes => {
-            notes = notes.filter(note => !!note.isArchive === filterBy.isArchive)
+            console.log(notes);
+            // notes = notes.filter(note => !!note.isArchive === filterBy.isArchive)
             if (filterBy.text) {
                 const regex = new RegExp(filterBy.text, 'i')
                 notes = notes.filter(note => regex.test(note.title) || regex.test(note.text))
@@ -66,6 +69,13 @@ function getEmptyTodo() {
 
 function getDefaultFilter() {
     return { text: '', isArchive: false }
+}
+
+function getFilterFromParams(searchParams = {}) {
+    const defaultFilter = getDefaultFilter()
+    return {
+        text: searchParams.get('text') || defaultFilter.text,
+    }
 }
 
 function _createNotes() {

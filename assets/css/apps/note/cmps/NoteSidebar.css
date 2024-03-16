@@ -1,0 +1,31 @@
+.main-notes .note-sidebar {
+    display: grid;
+    grid-template-rows: repeat(2, 3rem);
+    background-color: var(--bg-color);
+    width: 17.5rem;
+    padding-block-start: 0.5rem;
+}
+
+.main-notes .note-sidebar a{  
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 3rem;
+    align-items: center;
+    padding-inline-start: 0.75rem;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-end-end-radius: 3rem;
+    border-start-end-radius: 3rem;
+}
+
+.main-notes .note-sidebar a i{
+    display: grid;
+    place-content: center;
+    font-size: 1.15rem;
+}
+
+.main-notes .note-sidebar a.active{
+    background-color: var(--note-sidebar-active);
+    
+}

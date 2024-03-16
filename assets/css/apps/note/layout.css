@@ -20,3 +20,7 @@
 .main-notes-layout .note-content{
     grid-column: 2
 }
+
+.main-notes-layout .sidebar {
+    grid-column: 1;
+}

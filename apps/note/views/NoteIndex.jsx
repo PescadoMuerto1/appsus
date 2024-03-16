@@ -1,5 +1,6 @@
 
 const { useState, useEffect, Fragment, useRef } = React
+const { useSearchParams, Outlet } = ReactRouterDOM
 
 import { NoteSideBar } from '../cmps/NoteSideBar.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
@@ -10,15 +11,19 @@ import { EditNoteModal } from '../cmps/EditNoteModal.jsx'
 import { NoteHeader } from '../cmps/NoteHeader.jsx'
 
 export function NoteIndex() {
+    const [searchParams, setSearchParams] = useSearchParams()
+
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
     const [emptyNote, setEmptyNote] = useState(null)
     const editModeRef = useRef(null)
+    const [filterBy, setFilterBy] = useState(noteService.getFilterFromParams(searchParams))
 
     useEffect(() => {
+        setSearchParams(filterBy)
         loadNotes()
         console.log('load notes');
-    }, [])
+    }, [filterBy])
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -36,9 +41,15 @@ export function NoteIndex() {
     }, [emptyNote])
 
     function loadNotes() {
-        noteService.query()
+        noteService.query(filterBy)
             .then(setNotes)
             .catch(console.error)
+    }
+
+    function onSetFilter(fieldsToUpdate) {
+        console.log('fieldsToUpdate', fieldsToUpdate)
+
+        setFilterBy(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
     }
 
     function onRemoveNote(ev, noteId) {
@@ -88,7 +99,7 @@ export function NoteIndex() {
     if (!notes) return <div>loading...</div>
     return (
         <main className='main-notes main-notes-layout'>
-            <NoteHeader />
+            <NoteHeader filterBy={filterBy} onSetFilter={onSetFilter} />
             <NoteSideBar />
             <div className='note-content'>
                 {!emptyNote && <AddNoteBar onAddNote={onAddNote} />}

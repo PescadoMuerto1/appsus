@@ -1,13 +1,11 @@
-import { mailService } from "../services/mail.service.js"
 
-const { Link, useSearchParams } = ReactRouterDOM
+const { NavLink, useSearchParams } = ReactRouterDOM
 
 export function NoteSideBar({ unreadCount }) {
     // const [searchParams, setSearchParams] = useSearchParams()
     // const folder = searchParams.get('folder')
-    // return <ul className="sidebar clean-list">
-    //     <li className="flex"><Link to="/mail/compose"><button className="btn-compose">Compose</button></Link></li>
-    //     <li className={ `flex ${folder === 'inbox' ? 'active' : ''}` }><Link to="/mail/list?folder=notes">Inbox{ unreadCount ? ` (${unreadCount})` : '' }</Link></li>
-    //     <li className={ `flex ${folder === 'starred' ? 'active' : ''}` }><Link to="/mail/list?folder=archive" >Starred</Link></li>
-    // </ul>
+    return <ul className="note-sidebar clean-list">
+        <li><NavLink to="/note"><i className="fa-solid fa-note-sticky"></i> Notes</NavLink></li>
+        <li><NavLink to="/note/archive"><i className="fa-solid fa-box-archive"></i>Archive</NavLink></li>
+    </ul>
 }
