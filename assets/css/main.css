@@ -10,7 +10,7 @@
 @import './basics/layout.css';
 
 /* Views */
-@import './views/home.css';
+@import './Home.css';
 
 /* Cmps */
 @import './cmps/UserMsg.css';
