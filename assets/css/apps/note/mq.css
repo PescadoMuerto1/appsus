@@ -4,15 +4,6 @@
         grid-template-columns: minmax(1rem, 1fr) 32.4rem minmax(1rem, 1fr);
     }
 
-    .main-notes .note-sidebar:not(.not-extended) {
-        position: absolute;
-        top: 4rem;
-        height: 100vh;
-        background-color: var(--bg-color);
-        z-index: 500;
-        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    }
-
     .notes-list-layout {
         display: block;
         columns: 15rem;
@@ -53,6 +44,12 @@
     .note-header .search-container {
         width: 50%;
     }
+
+    .main-notes .note-sidebar {
+        position: relative;
+        box-shadow: none;
+    }
+   
 }
 
 @media (min-width: 1080px) {
