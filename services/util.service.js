@@ -6,6 +6,7 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
+    getCleanParams
 }
 
 function makeId(length = 6) {
@@ -59,4 +60,12 @@ function getMonthName(date) {
         "July", "August", "September", "October", "November", "December"
     ]
     return monthNames[date.getMonth()]
+}
+
+function getCleanParams(filterBy = {}, sortBy = {}) {
+    const cleanParams = { ...sortBy }
+    for (const key in filterBy) {
+        if (filterBy[key]) cleanParams[key] = filterBy[key]
+    }
+    return cleanParams
 }

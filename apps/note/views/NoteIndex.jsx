@@ -1,17 +1,19 @@
 
 const { useState, useEffect, Fragment, useRef } = React
 const { useSearchParams, Outlet } = ReactRouterDOM
+const { useNavigate } = ReactRouter
 
 import { NoteSideBar } from '../cmps/NoteSideBar.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
 import { AddNote } from '../cmps/AddNote.jsx'
 import { noteService } from '../services/note.service.js'
 import { AddNoteBar } from '../cmps/AddNoteBar.jsx'
-import { EditNoteModal } from '../cmps/EditNoteModal.jsx'
 import { NoteHeader } from '../cmps/NoteHeader.jsx'
+import { utilService } from '../../../services/util.service.js'
 
 export function NoteIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
+    const nav = useNavigate()
 
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
@@ -20,9 +22,8 @@ export function NoteIndex() {
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromParams(searchParams))
 
     useEffect(() => {
-        setSearchParams(filterBy)
+        setSearchParams(utilService.getCleanParams(filterBy))
         loadNotes()
-        console.log('load notes', notes)
     }, [filterBy])
 
     useEffect(() => {
@@ -102,21 +103,22 @@ export function NoteIndex() {
     function onAddImg(ev) {
         const reader = new FileReader()
         reader.onload = ev => {
-            let newImg = new Image() 
+            let newImg = new Image()
             newImg.src = ev.target.result
-            console.log(newImg); 
+            console.log(newImg);
             newImg.onload = () => {
                 const newNote = noteService.getEmptyNote('img')
                 newNote.img = newImg.src
                 setEmptyNote(newNote)
             }
         }
-        reader.readAsDataURL(ev.target.files[0]) 
+        reader.readAsDataURL(ev.target.files[0])
 
     }
 
     function onSelectNote(note) {
         setSelectedNote(note)
+        nav('/note/edit')
     }
 
     if (!notes) return <div>loading...</div>
@@ -125,7 +127,7 @@ export function NoteIndex() {
             <NoteHeader filterBy={filterBy} onSetFilter={onSetFilter} />
             <NoteSideBar />
             <div className='note-content'>
-                {!emptyNote && <AddNoteBar onAddNote={onAddNote} onAddImg={onAddImg}/>}
+                {!emptyNote && <AddNoteBar onAddNote={onAddNote} onAddImg={onAddImg} />}
                 <div ref={editModeRef}>
                     {emptyNote && <AddNote onSaveNote={onSaveNote} noteToEdit={emptyNote} />}
                 </div>
@@ -134,7 +136,7 @@ export function NoteIndex() {
                     <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
                     <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
                 </div>}
-                {selectedNote && <EditNoteModal noteToEdit={selectedNote} onSaveNote={onSaveNote} setSelectNote={setSelectedNote} />}
+                {selectedNote && <Outlet context={[selectedNote, onSaveNote, setSelectedNote]} />}
             </div>
         </main>
     )

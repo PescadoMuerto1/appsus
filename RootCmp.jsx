@@ -11,6 +11,7 @@ import { MailDetails } from "./apps/mail/cmps/MailDetails.jsx"
 import { MailCompose } from "./apps/mail/views/MailCompose.jsx"
 import { MailList } from "./apps/mail/cmps/MailList.jsx"
 import { MailFilter } from "./apps/mail/cmps/MailFilter.jsx"
+import { EditNoteModal } from "./apps/note/cmps/EditNoteModal.jsx"
 
 
 
@@ -26,7 +27,7 @@ export function App() {
                         <Route path="/mail/read/:mailId" element={ <MailDetails /> } />
                         <Route path="/mail/compose" element={ <MailCompose /> } />
                     </Route>
-                    <Route path="/note" element={ <NoteIndex /> } />
+                    <Route path="/note" element={ <NoteIndex /> }> <Route path='/note/edit' element={<EditNoteModal/>}/> </Route> 
                 </Routes>
             </main>
         </section>
