@@ -2,7 +2,7 @@ const { useState, useEffect, Fragment } = React
 const { useNavigate, useParams } = ReactRouter
 const { useSearchParams } = ReactRouterDOM
 
-
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js";
 import { mailService } from "../services/mail.service.js"
 
 export function MailCompose() {
@@ -30,10 +30,13 @@ export function MailCompose() {
         ev.preventDefault()
         mailService.save({ ...mail, sentAt: isSent ? Date.now() : null })
             .then(mail => {
-                console.log('mail:', mail)
+                showSuccessMsg('Mail sent')
                 navigate(`/mail/list`)
             })
-            .catch(err => console.log('err:', err))
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg('There was a problem sending this mail')
+            })
     }
 
     function onSaveAsNote(ev) {

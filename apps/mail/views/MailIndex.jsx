@@ -2,6 +2,7 @@ const { useState, useEffect, useRef, Fragment } = React
 const { useNavigate } = ReactRouter
 const { useSearchParams, Outlet } = ReactRouterDOM
 
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js";
 import { MailHeader } from "../cmps/MailHeader.jsx";
 import { MailSideBar } from "../cmps/MailSideBar.jsx";
 import { mailService } from "../services/mail.service.js";
@@ -67,16 +68,24 @@ export function MailIndex() {
             mailService.remove(mailToDelete.id)
                 .then(mail => {
                     setMails(prevMails => prevMails.filter(mail => mail.id !== mailToDelete.id))
+                    showSuccessMsg('Mail deleted')
                 })
-                .catch(err => console.log('err:', err))
+                .catch(err => {
+                    console.log('err:', err)
+                    showErrorMsg('There was a problem deleting this mail')
+                })
         }
         else {
             mailToDelete.removedAt = Date.now()
             mailService.save(mailToDelete)
                 .then(mail => {
                     setMails(prevMails => prevMails.filter(mail => mail.id !== mailToDelete.id))
+                    showSuccessMsg('Mail moved to trash')
                 })
-                .catch(err => console.log('err:', err))
+                .catch(err => {
+                    console.log('err:', err)
+                    showErrorMsg('There was a problem deleting this mail')
+                })
         }
     }
 
@@ -86,9 +95,13 @@ export function MailIndex() {
             setUnreadCount(prevCount => prevCount - 1)
             mailService.save(mail)
                 .then(mail => {
+                    showSuccessMsg('Opening mail')
                     navigate(`/mail/read/${mail.id}?folder=${filterBy.folder}`)
                 })
-                .catch(err => console.log('err:', err))
+                .catch(err => {
+                    console.log('err:', err)
+                    showErrorMsg('There was a problem opening this mail')
+                })
         }
         else navigate(`/mail/read/${mail.id}?folder=${filterBy.folder}`)
     }

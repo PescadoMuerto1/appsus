@@ -2,16 +2,20 @@
     background-color: lightgray;
     padding: 1em;
     position: absolute;
-    top: 1em;
-    right: 1em;
+    bottom: 1rem;
+    right: 1rem;
 }
 
 .user-msg.success {
-    background-color: lightgreen;
+    background-color: var(--main-bg-color);
+    border-radius: 6px;
+    border: 1px solid darkgreen;
 }
 
 .user-msg.error {
-    background-color: lightpink;
+    background-color: var(--main-bg-color);
+    border-radius: 6px;
+    border: 1px solid darkred;
 }
 
 
