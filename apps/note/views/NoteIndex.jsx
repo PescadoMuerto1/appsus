@@ -10,11 +10,12 @@ import { noteService } from '../services/note.service.js'
 import { AddNoteBar } from '../cmps/AddNoteBar.jsx'
 import { NoteHeader } from '../cmps/NoteHeader.jsx'
 import { utilService } from '../../../services/util.service.js'
+import { EditNoteModal } from '../cmps/EditNoteModal.jsx'
 
 export function NoteIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const nav = useNavigate()
-
+    console.log('searchParams:', searchParams.get('subject'))
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
     const [emptyNote, setEmptyNote] = useState(null)
@@ -22,7 +23,15 @@ export function NoteIndex() {
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromParams(searchParams))
 
     useEffect(() => {
-        setSearchParams(utilService.getCleanParams(filterBy))
+        const note = noteService.getEmptyNote('text')
+        note.title = searchParams.get('subject') || ''
+        note.text = searchParams.get('content') || ''
+        if (note.title || note.text) setSelectedNote(note)
+    }, [])
+
+    useEffect(() => {
+        const abc = { subject: searchParams.get('subject'), content: searchParams.get('content') }
+        setSearchParams(utilService.getCleanParams({ ...filterBy, ...abc }))
         loadNotes()
     }, [filterBy])
 
@@ -84,7 +93,10 @@ export function NoteIndex() {
     function onSaveNote(note) {
         noteService.save(note)
             .then(loadNotes)
-            .then(() => { if (selectedNote) setSelectedNote('') })
+            .then(() => {
+                if (selectedNote) setSelectedNote('')
+                setSearchParams({})
+            })
             .catch(console.error)
     }
 
@@ -118,25 +130,25 @@ export function NoteIndex() {
 
     function onSelectNote(note) {
         setSelectedNote(note)
-        nav('/note/edit')
     }
 
     if (!notes) return <div>loading...</div>
     return (
         <main className='main-notes main-notes-layout'>
-            <NoteHeader filterBy={filterBy} onSetFilter={onSetFilter} />
+            <NoteHeader filterBy={ filterBy } onSetFilter={ onSetFilter } />
             <NoteSideBar />
             <div className='note-content'>
-                {!emptyNote && <AddNoteBar onAddNote={onAddNote} onAddImg={onAddImg} />}
-                <div ref={editModeRef}>
-                    {emptyNote && <AddNote onSaveNote={onSaveNote} noteToEdit={emptyNote} />}
+                { !emptyNote && <AddNoteBar onAddNote={ onAddNote } onAddImg={ onAddImg } /> }
+                <div ref={ editModeRef }>
+                    { emptyNote && <AddNote onSaveNote={ onSaveNote } noteToEdit={ emptyNote } /> }
                 </div>
 
-                {notes.length && <div className='content-layout'>
-                    <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
-                    <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
-                </div>}
-                {selectedNote && <Outlet context={[selectedNote, onSaveNote, setSelectedNote]} />}
+                { notes.length && <div className='content-layout'>
+                    <NoteList notes={ notes.filter(note => note.isPinned) } onRemoveNote={ onRemoveNote } onArchiveNote={ onArchiveNote } onPinNote={ onPinNote } onSelectNote={ onSelectNote } onSaveNote={ onSaveNote } />
+                    <NoteList notes={ notes.filter(note => !note.isPinned) } onRemoveNote={ onRemoveNote } onArchiveNote={ onArchiveNote } onPinNote={ onPinNote } onSelectNote={ onSelectNote } onSaveNote={ onSaveNote } />
+                </div> }
+                { selectedNote && <EditNoteModal selectedNote={ selectedNote } onSaveNote={ onSaveNote } setSelectedNote={ setSelectedNote } />
+                }
             </div>
         </main>
     )

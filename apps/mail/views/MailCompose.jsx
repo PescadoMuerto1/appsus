@@ -38,7 +38,8 @@ export function MailCompose() {
 
     function onSaveAsNote(ev) {
         ev.preventDefault()
-        navigate(`/note/edit?subject=${mail.subject}&content=${mail.body}`)
+        console.log('mail:', mail)
+        navigate(`/note/?subject=${mail.subject}&content=${mail.body}`)
     }
 
     return <Fragment>
