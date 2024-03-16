@@ -1,0 +1,8 @@
+.about {
+    grid-area: 2/2;
+}
+
+.about img {
+    width: 404px;
+    padding: 15px;
+}
