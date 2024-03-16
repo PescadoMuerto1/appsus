@@ -17,13 +17,11 @@ import { MailFilter } from "./apps/mail/cmps/MailFilter.jsx"
 export function App() {
     return <Router>
         <section className="app grid main-layout">
-            {/* <AppHeader /> */}
             <main className="main-content full grid main-layout">
                 <Routes>
                     <Route path="/" element={ <Home /> } />
                     <Route path="/about" element={ <About /> } />
                     <Route path="/mail" element={ <MailIndex /> } >
-                        {/* <Route path="/mail/mail" element={ <MailDetails /> } /> */ }
                         <Route path="/mail/list" element={ <Fragment><MailFilter /> <MailList /></Fragment> } />
                         <Route path="/mail/read/:mailId" element={ <MailDetails /> } />
                         <Route path="/mail/compose" element={ <MailCompose /> } />

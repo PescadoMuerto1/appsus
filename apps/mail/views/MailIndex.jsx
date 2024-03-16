@@ -3,6 +3,7 @@ const { useNavigate } = ReactRouter
 const { useSearchParams, Outlet } = ReactRouterDOM
 
 import { MailFilter } from "../cmps/MailFilter.jsx";
+import { MailHeader } from "../cmps/MailHeader.jsx";
 import { MailList } from "../cmps/MailList.jsx";
 import { MailSideBar } from "../cmps/MailSideBar.jsx";
 import { mailService } from "../services/mail.service.js";
@@ -120,6 +121,7 @@ export function MailIndex() {
     }
 
     return <Fragment>
+        <MailHeader filterBy={ filterBy } onSetFilter={ onSetFilter } />
         <MailSideBar
             unreadCount={ mails ? unreadCount : '' } />
         <section className="mail-index">
