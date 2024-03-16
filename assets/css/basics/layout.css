@@ -4,7 +4,6 @@
 }
 
 .main-layout {
-    /* margin: 0 auto; */
     grid-template-columns: 16rem 80vw 1fr;
 
 }
@@ -20,6 +19,7 @@
 
 .main-content {
     grid-template-areas:
+        ".       .       ."
         "sidebar content ."
     ;
     height: 100%;

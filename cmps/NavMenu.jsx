@@ -2,7 +2,7 @@
 const { useState, useRef, useEffect } = React
 const { NavLink } = ReactRouterDOM
 
-export function NoteNavMenu({ setIsNavMenu, isNavMenu }) {
+export function NavMenu({ setIsNavMenu, isNavMenu }) {
     const navRef = useRef(null)
 
     useEffect(() => {
