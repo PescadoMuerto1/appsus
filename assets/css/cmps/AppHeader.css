@@ -101,7 +101,7 @@
 }
 
 
-.home .menu-nav-content{
+.home>.menu-nav-content{
     grid-template-areas: 
     ". ."
     ". ."
@@ -114,7 +114,7 @@
     justify-items: center;
 }
 
-.home .menu-nav-content a{
+.home>.menu-nav-content a{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -128,6 +128,6 @@
     border: 4px solid var(--nav-menu-border);
 }
 
-.home .menu-nav-content *:not(i){
+.home>.menu-nav-content *:not(i){
     color: var(--mail-main-color) ;
 }

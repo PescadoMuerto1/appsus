@@ -11,6 +11,8 @@ import { AddNoteBar } from '../cmps/AddNoteBar.jsx'
 import { NoteHeader } from '../cmps/NoteHeader.jsx'
 import { utilService } from '../../../services/util.service.js'
 import { EditNoteModal } from '../cmps/EditNoteModal.jsx'
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js";
+
 
 export function NoteIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -74,7 +76,7 @@ export function NoteIndex() {
         noteService.remove(noteId)
             .then(() => {
                 setNotes((prevNotes) => prevNotes.filter(note => note.id !== noteId))
-                // showSuccessMsg(`note removed successfully${noteId}`)
+                showSuccessMsg(`note removed successfully${noteId}`)
             })
             .catch(console.error)
     }
@@ -99,7 +101,7 @@ export function NoteIndex() {
         noteService.save({...noteToArchive , style: nStyle})
             .then(() => {
                 setNotes((prevNotes) => prevNotes.filter(note => note.id !== noteToArchive.id))
-                // showSuccessMsg(`note moved successfully${note.id}`)
+                showSuccessMsg(`note moved successfully${note.id}`)
             })
             .catch(console.error)
     }
@@ -110,6 +112,7 @@ export function NoteIndex() {
             .then(() => {
                 if (selectedNote) setSelectedNote('')
                 setSearchParams({})
+                showSuccessMsg(`note saved successfully${note.id}`)
             })
             .catch(console.error)
     }

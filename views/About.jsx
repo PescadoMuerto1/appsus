@@ -1,8 +1,8 @@
 
 export function About() {
     return <section className="about">
-        <img src="/assets/img/sus-2.jpg" alt="" />
-        <img src="/assets/img/sus-3.jpg" alt="" />
+        <img src="assets/img/sus-2.jpg" alt="" />
+        <img src="assets/img/sus-3.jpg" alt="" />
         <h1>About Page</h1>
 
         <p>Hello and welcome! We are <strong>yifat and moshe</strong>, the dynamic duo behind <strong>Apsus App</strong>. As passionate individuals with a shared vision, we embarked on this journey to create something truly remarkable.</p>
