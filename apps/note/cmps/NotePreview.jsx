@@ -35,8 +35,12 @@ export function NotePreview({ note, onSelectNote, onSaveNote, onArchiveNote, onP
             <ul className="note-actions clean-list transparent">
                 <li key={4242} onClick={(ev) => onRemoveNote(ev, note.id)}> <i className="fa-solid fa-trash-can"></i></li>
                 <li key={43242} onClick={onOpenColorPicker}> <i className="fa-solid fa-palette"></i></li>
-                <li key={42} onClick={(ev) => onPinNote(ev, note)}> <i className={`fa-solid fa-thumbtack${note.isPinned ? ' pinned' : ''}`}></i></li>
-                <li key={46} onClick={(ev) => onArchiveNote(ev, note)}> <i className="fa-solid fa-box-archive"></i></li>
+                <li key={42} onClick={(ev) => onPinNote(ev, note)}>
+                     <i className={`fa-solid fa-thumbtack${note.isPinned ? ' pinned' : ''}`}></i></li>
+                <li key={46} onClick={(ev) => onArchiveNote(ev, note)}>
+                     {!note.isArchived && <i className="fa-solid fa-box-archive"></i>}
+                     {note.isArchived && <i className="fa-solid fa-upload"></i>}
+                     </li>
             </ul>
             {colorPicker && <ColorPicker note={note} colorPicker={colorPicker} setColorPicker={setColorPicker} onSaveNote={onSaveNote} />
             }

@@ -4,6 +4,7 @@
 }
 
 .add-note {
+    position: relative;
     margin: 57px auto 16px auto;
     width: 37.5rem;
     display: grid;
@@ -12,6 +13,7 @@
     /* border: 1px solid #e0e0e0; */
     border-radius: 6px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: background-color 0.4s;
 }
 
 .add-note-bar {
@@ -37,7 +39,7 @@
 
 .add-note input,
 .add-note textarea {
-    font-size: 1rem;
+    font-size: 1.1rem;
     width: 100%;
     border: none;
     min-height: 44px;
@@ -45,11 +47,28 @@
     outline: none;
     display: flex;
     background-color: inherit;
-    /* padding: 0.625rem 1rem; */
+    padding: 0.75rem 1rem; 
+}
+
+.add-note .title {
+    font-size: 1.2rem;
 }
 
 .add-note .note-text {
     font-size: 0.875rem;
+}
+
+.add-note .actions-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: max-content max-content;
+    width: 100%;
+}
+
+.add-note .actions-container i{
+  padding: 1rem;
+  color: inherit;
+  cursor: pointer;
 }
 
 .add-note button {
@@ -59,4 +78,17 @@
     justify-self: end;
     padding-inline: 2rem;
     min-height: 44px;
+    font-size: 0.9rem;
+}
+
+.add-note-bar input.hidden  {
+    display: none;
+}
+
+.add-note-bar i, label {
+    cursor: pointer;
+}
+
+.add-note .actions-container .active {
+    color: var(--note-form-active);
 }

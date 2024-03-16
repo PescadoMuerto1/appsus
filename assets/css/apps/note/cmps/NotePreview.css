@@ -6,15 +6,15 @@
     margin-block-end: 1rem;
     width: 15rem;
     color: var(--note-text-color);
-    transition: box-shadow 0.3s;
+    transition: box-shadow, background-color 0.4s;
 }
 
 .note-card:hover {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.note-preview {
-   
+.note-card:hover .note-actions{
+    opacity: 1;
 }
 
 .note-preview :first-child {
@@ -59,8 +59,4 @@
 
 .note-actions i {
     font-size: 1rem;
-}
-
-.note-actions:hover {
-    opacity: 1;
 }
