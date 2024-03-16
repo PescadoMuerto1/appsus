@@ -4,7 +4,6 @@
     border-radius: 1rem;
     break-inside: avoid-column;
     margin-block-end: 1rem;
-    width: 15rem;
     color: var(--note-text-color);
     transition: box-shadow, background-color 0.4s;
 }

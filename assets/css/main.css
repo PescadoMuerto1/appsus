@@ -54,4 +54,6 @@
 @import './apps/mail/views/MailMQ.css';
 /******** ------ ********/
 
-@import './../../lib/animate.css'
+@import './../../lib/animate.css';
+
+@import './apps/note/mq.css';
