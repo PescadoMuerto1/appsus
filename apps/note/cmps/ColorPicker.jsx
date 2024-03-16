@@ -1,4 +1,4 @@
-const { useState, useRef, useEffect } = React
+const {  useRef, useEffect } = React
 
 export function ColorPicker({colorPicker, setColorPicker, onSaveNote, note}) {
     const colors = ['transparent', '#F39F76', '#FFF8B8', '#E2F5D3', '#B4DDD3', '#F6E2DD', '#D3BFDB']

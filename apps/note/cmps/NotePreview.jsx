@@ -1,4 +1,4 @@
-const { useState, useRef, useEffect } = React
+const { useState } = React
 
 import { NoteTodo } from "./NoteTodo.jsx";
 import { ColorPicker } from "./ColorPicker.jsx"
@@ -10,6 +10,11 @@ export function NotePreview({ note, onSelectNote, onSaveNote, onArchiveNote, onP
         ev.stopPropagation()
         note.todos[index].isChecked = ev.target.checked
         onSaveNote(note)
+    }
+
+    function onDuplicateNote(ev, note) {
+        ev.stopPropagation()
+        onSaveNote({...note, id:''})
     }
 
     function onOpenColorPicker(ev) {
@@ -34,6 +39,7 @@ export function NotePreview({ note, onSelectNote, onSaveNote, onArchiveNote, onP
                 </ul>}
             <ul className="note-actions clean-list transparent">
                 <li key={4242} onClick={(ev) => onRemoveNote(ev, note.id)}> <i className="fa-solid fa-trash-can"></i></li>
+                <li key={4242} onClick={(ev) => onDuplicateNote(ev, note)}> <i className="fa-solid fa-clone"></i></li>
                 <li key={43242} onClick={onOpenColorPicker}> <i className="fa-solid fa-palette"></i></li>
                 <li key={42} onClick={(ev) => onPinNote(ev, note)}>
                      <i className={`fa-solid fa-thumbtack${note.isPinned ? ' pinned' : ''}`}></i></li>
