@@ -19,7 +19,7 @@
     transition: box-shadow 300ms;
 }
 
-textarea{
+.mail-compose textarea{
     height: 60vh;
 }
 
