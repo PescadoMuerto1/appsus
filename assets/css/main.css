@@ -11,6 +11,7 @@
 
 /* Views */
 @import './Home.css';
+@import './About.css';
 
 /* Cmps */
 @import './cmps/UserMsg.css';
