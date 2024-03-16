@@ -2,6 +2,7 @@
     grid-area: sidebar;
     font-size: 0.875rem;
     background-color: var(--main-bg-color);
+    color: var(--mail-main-color);
 }
 
 .sidebar * {
@@ -27,14 +28,19 @@
 
 .sidebar .btn-compose {
     white-space: nowrap;
-    border-radius: 1rem;
+    border-radius: 16px;
     height: 3.5rem;
-    width: 7.5rem;
+    width: 8rem;
     margin: 0.5rem 0 1rem 0.5rem;
     background-color: #C2E7FF;
     border: none;
     text-align: center;
     transition: box-shadow .08s linear, width 300ms;
+}
+
+.sidebar:not(.iconsOnly) .btn-compose{
+    display: flex;
+    align-items: center;
 }
 
 .sidebar.iconsOnly .btn-compose {
@@ -68,6 +74,8 @@
 
 .sidebar .active {
     background-color: #D3E3FD;
+    color: #041E49;
+    font-weight: bold;
 }
 
 .sidebar>li:not(:first-of-type, .active):hover {

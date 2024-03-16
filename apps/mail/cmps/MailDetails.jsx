@@ -33,7 +33,7 @@ export function MailDetails() {
     }
 
     if (!mail) return <div><img src="assets/img/planeloader.gif" /></div>
-    return <section className="mail-details grid">
+    return <section className="mail-details flex column">
         <span className="flex actions">
             <button onClick={ (ev) => onToggleProperty(ev, mail, 'isStarred') }><i className={ `fa-${mail.isStarred ? 'solid' : 'regular'} fa-star` }></i></button>
             <MailActions mail={ mail } onDeleteMail={ onDeleteMail } onToggleProperty={ onMarkUnread } />
@@ -45,8 +45,8 @@ export function MailDetails() {
         </div>
 
         <div className="answers">
-            <button disabled><i className="fa-solid fa-reply"></i> Reply</button>
-            <button disabled>Forward <i className="fa-solid fa-share"></i></button>
+            <button className="pill-btn" disabled><i className="fa-solid fa-reply"></i> Reply</button>
+            <button className="pill-btn" disabled>Forward <i className="fa-solid fa-share"></i></button>
         </div>
     </section>
 

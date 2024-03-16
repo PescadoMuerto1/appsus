@@ -41,6 +41,7 @@
 
 /* Views */
 @import './apps/mail/views/MailIndex.css';
+@import './apps/mail/views/MailCompose.css';
 
 /* Cmps */
 @import './apps/mail/cmps/MailHeader.css';

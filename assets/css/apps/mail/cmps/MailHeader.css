@@ -7,6 +7,14 @@
     padding: 0.5rem;
 }
 
+.mail-header *{
+    color: var(--mail-main-color);
+}
+
+.mail-header svg{
+    fill: var(--mail-main-color);
+}
+
 .mail-header div {
     height: 100%;
 }
@@ -21,7 +29,7 @@
     font-size: 1.375rem;
     margin-inline-start: 0.8rem;
     font-family: Product sans;
-    color: var(--note-logo-txt-clr);
+    color: var(--mail-main-color);
 }
 
 .mail-header i {
