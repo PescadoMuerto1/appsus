@@ -4,7 +4,7 @@
 }
 
 .main-layout {
-    grid-template-columns: var(--sideBarWidth) minmax(80vw, 1fr) minmax(5px, 3rem);
+    grid-template-columns: var(--sideBarWidth) minmax(calc(100vw - var(--sideBarWidth) - 3rem), 1fr) minmax(5px, 3rem);
     transition: grid-template-columns 300ms;
 
 }
