@@ -55,7 +55,7 @@ export function NotePreview({ note, onSelectNote, onSaveNote, onArchiveNote, onP
                 <li key={ 43242 } onClick={ onOpenColorPicker } title="Background options"> <i className="fa-solid fa-palette"></i></li>
                 { !note.isArchived && <li key={ 46 } onClick={ (ev) => onArchiveNote(ev, note) } title="Archive"><i className="fa-solid fa-box-archive"></i></li> }
                 { note.isArchived && <li key={ 46 } onClick={ (ev) => onArchiveNote(ev, note) } title="Unarchive note"><i className="fa-solid fa-upload"></i></li> }
-                <li onClick={(ev)=>onSendNote(ev,note)}><i class="fa-solid fa-paper-plane"></i></li>
+                <li onClick={(ev)=>onSendNote(ev,note)}><i className="fa-solid fa-paper-plane"></i></li>
             </ul>
             { colorPicker && <ColorPicker note={ note } colorPicker={ colorPicker } setColorPicker={ setColorPicker } onSaveNote={ onSaveNote } />
             }

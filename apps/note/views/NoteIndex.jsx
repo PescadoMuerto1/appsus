@@ -15,12 +15,13 @@ import { EditNoteModal } from '../cmps/EditNoteModal.jsx'
 export function NoteIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const nav = useNavigate()
-    console.log('searchParams:', searchParams.get('subject'))
+    const editModeRef = useRef(null)
+
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
     const [emptyNote, setEmptyNote] = useState(null)
-    const editModeRef = useRef(null)
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromParams(searchParams))
+    const [isSidebarExtended, setIsSidebarExtended] = useState(null)
 
     useEffect(() => {
         const note = noteService.getEmptyNote('text')
@@ -114,10 +115,11 @@ export function NoteIndex() {
 
     function onAddImg(ev) {
         const reader = new FileReader()
+
         reader.onload = ev => {
             let newImg = new Image()
             newImg.src = ev.target.result
-            console.log(newImg);
+
             newImg.onload = () => {
                 const newNote = noteService.getEmptyNote('img')
                 newNote.img = newImg.src
@@ -125,7 +127,6 @@ export function NoteIndex() {
             }
         }
         reader.readAsDataURL(ev.target.files[0])
-
     }
 
     function onSelectNote(note) {
@@ -135,19 +136,36 @@ export function NoteIndex() {
     if (!notes) return <div>loading...</div>
     return (
         <main className='main-notes main-notes-layout'>
-            <NoteHeader filterBy={ filterBy } onSetFilter={ onSetFilter } />
-            <NoteSideBar />
+            <NoteHeader filterBy={filterBy} onSetFilter={onSetFilter} setIsSidebarExtended={setIsSidebarExtended} />
+            <NoteSideBar isSidebarExtended={isSidebarExtended} />
+
             <div className='note-content'>
-                { !emptyNote && <AddNoteBar onAddNote={ onAddNote } onAddImg={ onAddImg } /> }
-                <div ref={ editModeRef }>
-                    { emptyNote && <AddNote onSaveNote={ onSaveNote } noteToEdit={ emptyNote } /> }
+                {!emptyNote && <AddNoteBar onAddNote={onAddNote} onAddImg={onAddImg} />}
+
+                <div ref={editModeRef}>
+                    {emptyNote && <AddNote onSaveNote={onSaveNote} noteToEdit={emptyNote} />}
                 </div>
 
-                { notes.length && <div className='content-layout'>
-                    <NoteList notes={ notes.filter(note => note.isPinned) } onRemoveNote={ onRemoveNote } onArchiveNote={ onArchiveNote } onPinNote={ onPinNote } onSelectNote={ onSelectNote } onSaveNote={ onSaveNote } />
-                    <NoteList notes={ notes.filter(note => !note.isPinned) } onRemoveNote={ onRemoveNote } onArchiveNote={ onArchiveNote } onPinNote={ onPinNote } onSelectNote={ onSelectNote } onSaveNote={ onSaveNote } />
-                </div> }
-                { selectedNote && <EditNoteModal selectedNote={ selectedNote } onSaveNote={ onSaveNote } setSelectedNote={ setSelectedNote } />
+                {notes.length &&
+                    <div className='content-layout'>
+
+                        {notes.filter(note => note.isPinned).length > 0 && <NoteList
+                            notes={notes.filter(note => note.isPinned)}
+                            onRemoveNote={onRemoveNote}
+                            onArchiveNote={onArchiveNote}
+                            onPinNote={onPinNote}
+                            onSelectNote={onSelectNote}
+                            onSaveNote={onSaveNote} />}
+
+                        {notes.filter(note => !note.isPinned).length > 0 && <NoteList
+                            notes={notes.filter(note => !note.isPinned)}
+                            onRemoveNote={onRemoveNote}
+                            onArchiveNote={onArchiveNote}
+                            onPinNote={onPinNote}
+                            onSelectNote={onSelectNote}
+                            onSaveNote={onSaveNote} />}
+                    </div>}
+                {selectedNote && <EditNoteModal selectedNote={selectedNote} onSaveNote={onSaveNote} setSelectedNote={setSelectedNote} />
                 }
             </div>
         </main>

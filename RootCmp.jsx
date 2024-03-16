@@ -17,6 +17,7 @@ import { EditNoteModal } from "./apps/note/cmps/EditNoteModal.jsx"
 
 export function App() {
     return <Router>
+        
             <main className="app main-content full grid main-layout">
                 <Routes>
                     <Route path="/" element={ <Home /> } />

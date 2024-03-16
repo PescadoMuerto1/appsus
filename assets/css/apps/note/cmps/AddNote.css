@@ -72,6 +72,7 @@
 }
 
 .add-note button {
+    place-self: center;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -92,3 +93,19 @@
 .add-note .actions-container .active {
     color: var(--note-form-active);
 }
+
+.add-note .todo-container {
+    width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.add-note .add-todo {
+    place-self: start;
+    transition: scale 0.3s;
+}
+
+.add-note .add-todo:hover {
+    scale: 1.2;
+}
+
