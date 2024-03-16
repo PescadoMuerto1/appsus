@@ -1,7 +1,7 @@
 const { useState, useRef, useEffect } = React
 
 export function ColorPicker({colorPicker, setColorPicker, onSaveNote, note}) {
-    const colors = ['#FAAFA7', '#F39F76', '#FFF8B8', '#E2F5D3', '#B4DDD3', '#F6E2DD', '#D3BFDB']
+    const colors = ['transparent', '#F39F76', '#FFF8B8', '#E2F5D3', '#B4DDD3', '#F6E2DD', '#D3BFDB']
     const colorPickerRef = useRef(null)
     
     useEffect(() => {
@@ -36,7 +36,8 @@ export function ColorPicker({colorPicker, setColorPicker, onSaveNote, note}) {
                         className={`item`}
                         onClick={(ev) => onSetColor(ev, color)}
                         style={{ backgroundColor: color }}
-                    ></div>)
+                        
+                    >{color === 'transparent' ? <i class="fa-solid fa-ban"></i> : ''}</div>)
                 }
             </div>
         </section>
