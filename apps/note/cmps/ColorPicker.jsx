@@ -20,7 +20,6 @@ export function ColorPicker({colorPicker, setColorPicker, onSaveNote, note}) {
 
     function onSetColor(ev, color) {
         ev.stopPropagation()
-        console.log(note);
         const nStyle = {...note.style, backgroundColor:color}
 
         onSaveNote({...note , style:nStyle})

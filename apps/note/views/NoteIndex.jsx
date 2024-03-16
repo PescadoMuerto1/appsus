@@ -82,8 +82,21 @@ export function NoteIndex() {
     function onArchiveNote(ev, noteToArchive) {
         ev.stopPropagation()
 
-        noteToArchive.isArchived = noteToArchive.isArchived ? '' : true
-        noteService.save(noteToArchive)
+        const colors = ['#F39F76', '#FFF8B8', '#E2F5D3', '#B4DDD3', '#F6E2DD', '#D3BFDB']
+        const archiveColors = ['#dddddd', '#eeeeee', '#bbbbbb', '#aaaaaa', '#cccccc']
+
+        if (noteToArchive.isArchived) {
+            noteToArchive.isArchived = ''
+            const color = colors[utilService.getRandomIntInclusive(0, colors.length)]
+            var nStyle = {...noteToArchive.style, backgroundColor:color}
+        }
+        else {
+            noteToArchive.isArchived = true
+            const color = archiveColors[utilService.getRandomIntInclusive(0, archiveColors.length)]
+            var nStyle = {...noteToArchive.style, backgroundColor:color}
+        }
+
+        noteService.save({...noteToArchive , style: nStyle})
             .then(() => {
                 setNotes((prevNotes) => prevNotes.filter(note => note.id !== noteToArchive.id))
                 // showSuccessMsg(`note moved successfully${note.id}`)
