@@ -1,6 +1,7 @@
 
 export function About() {
     return <section className="about">
+
         <img src="assets/img/sus-2.jpg" alt="" />
         <img src="assets/img/sus-3.jpg" alt="" />
         <h1>About Page</h1>

@@ -41,14 +41,12 @@ export function NoteIndex() {
     useEffect(() => {
         setFilterBy(noteService.getFilterFromParams(searchParams))
         loadNotes()
-        console.log('load notes', notes)
     }, [searchParams])
 
     useEffect(() => {
         const handleClickOutside = (event) => {
 
             if (emptyNote && editModeRef.current && !editModeRef.current.contains(event.target)) {
-                console.log('inside of ref')
                 setEmptyNote(false)
             }
         }
@@ -66,8 +64,6 @@ export function NoteIndex() {
     }
 
     function onSetFilter(fieldsToUpdate) {
-        console.log('fieldsToUpdate', fieldsToUpdate)
-
         setFilterBy(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
     }
 
@@ -90,15 +86,15 @@ export function NoteIndex() {
         if (noteToArchive.isArchived) {
             noteToArchive.isArchived = ''
             const color = colors[utilService.getRandomIntInclusive(0, colors.length)]
-            var nStyle = {...noteToArchive.style, backgroundColor:color}
+            var nStyle = { ...noteToArchive.style, backgroundColor: color }
         }
         else {
             noteToArchive.isArchived = true
             const color = archiveColors[utilService.getRandomIntInclusive(0, archiveColors.length)]
-            var nStyle = {...noteToArchive.style, backgroundColor:color}
+            var nStyle = { ...noteToArchive.style, backgroundColor: color }
         }
 
-        noteService.save({...noteToArchive , style: nStyle})
+        noteService.save({ ...noteToArchive, style: nStyle })
             .then(() => {
                 setNotes((prevNotes) => prevNotes.filter(note => note.id !== noteToArchive.id))
                 showSuccessMsg(`note moved successfully${note.id}`)

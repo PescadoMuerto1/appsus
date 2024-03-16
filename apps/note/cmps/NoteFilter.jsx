@@ -9,16 +9,8 @@ export function NoteFilter({ filterBy, onSetFilter }) {
     }, [filterByToEdit])
 
     function handleChange({ target }) {
-        // console.log('target', target)
-
         let { value, name: field } = target
-
         setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, [field]: value }))
-        // onSetFilter(filterByToEdit)
-    }
-
-    function onClear() {
-        
     }
 
     return (

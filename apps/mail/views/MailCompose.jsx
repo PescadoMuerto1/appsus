@@ -21,8 +21,6 @@ export function MailCompose() {
 
     function handleChange({ target }) {
         let { value, name: field, type } = target
-        console.log('target:', target)
-        console.log('value:', value)
         setMail(prevMail => ({ ...prevMail, [field]: value }))
     }
 
@@ -41,7 +39,6 @@ export function MailCompose() {
 
     function onSaveAsNote(ev) {
         ev.preventDefault()
-        console.log('mail:', mail)
         navigate(`/note/?subject=${mail.subject}&content=${mail.body}`)
     }
 

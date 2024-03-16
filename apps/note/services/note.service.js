@@ -18,11 +18,9 @@ export const noteService = {
 }
 
 function query(filterBy = getDefaultFilter()) {
-    console.log(filterBy);
 
     return storageService.query(NOTE_KEY)
         .then(notes => {
-            console.log(notes);
             notes = notes.filter(note => !!note.isArchived === !!filterBy.isArchived)
             if (filterBy.text) {
                 const regex = new RegExp(filterBy.text, 'i')
