@@ -30,6 +30,5 @@ export function App() {
                     <Route path="/note" element={ <NoteIndex /> } />
                 </Routes>
             </main>
-        </section>
     </Router>
 }
