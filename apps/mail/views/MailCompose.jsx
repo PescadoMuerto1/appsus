@@ -9,7 +9,7 @@ export function MailCompose() {
     const [mail, setMail] = useState(mailService.getEmptyMail())
     const [searchParams, setSearchParams] = useSearchParams()
     const navigate = useNavigate()
-
+    
 
     useEffect(() => {
         if (searchParams.size) {
