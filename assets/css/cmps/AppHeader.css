@@ -99,3 +99,35 @@
     border: none;
     padding: 0;
 }
+
+
+.home .menu-nav-content{
+    grid-template-areas: 
+    ". ."
+    ". ."
+    ;
+    width: 100vw;
+    height: 80vh;
+
+    font-size: 6rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.home .menu-nav-content a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width:90%;
+    height: 90%;
+
+    background-color: var(--main-bg-color);
+    border-radius: 20px;
+    border: 4px solid var(--nav-menu-border);
+}
+
+.home .menu-nav-content *:not(i){
+    color: var(--mail-main-color) ;
+}
