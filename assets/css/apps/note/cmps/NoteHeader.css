@@ -50,25 +50,9 @@
     outline: none;
 }
 
-.note-header .search-container button{
-    position: absolute;
-    border: none;
-    background-color: transparent;
-    right: 0;
-    height: 3rem;
-    width: 3rem;
-    font-size: 1rem;
-    z-index: 10;
-    cursor: pointer;
-}
-
 .note-header .search:focus {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     background-color: var(--bg-color);
-}
-
-.note-header .search:focus +  button {
-   display: inline;
 }
 
 .note-header svg {

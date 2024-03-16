@@ -17,9 +17,13 @@ export function NoteFilter({ filterBy, onSetFilter }) {
         // onSetFilter(filterByToEdit)
     }
 
+    function onClear() {
+        
+    }
+
     return (
         <div className="search-container">
-        <input type="text"
+        <input type="search"
             className="search"
             placeholder="Search"
             name="text"
@@ -27,7 +31,6 @@ export function NoteFilter({ filterBy, onSetFilter }) {
             value={filterByToEdit.text}
             title="Search"
         />
-        <button className="hidden">x</button>
         </div>
     )
 }

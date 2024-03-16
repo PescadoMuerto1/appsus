@@ -22,8 +22,14 @@ export function NoteIndex() {
     useEffect(() => {
         setSearchParams(filterBy)
         loadNotes()
-        console.log('load notes');
+        console.log('load notes', notes)
     }, [filterBy])
+   
+    useEffect(() => {
+        setFilterBy(noteService.getFilterFromParams(searchParams))
+        loadNotes()
+        console.log('load notes', notes)
+    }, [searchParams])
 
     useEffect(() => {
         const handleClickOutside = (event) => {
