@@ -40,6 +40,11 @@ export function NoteEditForm({ onSaveNote, noteToEdit }) {
         setNote(prevNote => ({ ...prevNote }))
     }
 
+    function onRemoveTodo(todoId) {
+        const nTodos = note.todos.filter(todo => todo.id !== todoId)
+        setNote(prevNote => ({ ...prevNote, todos: nTodos }))
+    }
+
     return (
 
         <form className="add-note" onSubmit={(ev) => onAddNote(ev, note)} style={{ backgroundColor: note.style.backgroundColor }}>
@@ -66,24 +71,27 @@ export function NoteEditForm({ onSaveNote, noteToEdit }) {
             />}
             {note.type.includes('todo') && <Fragment>
                 {note.todos.map((todo, index) =>
-                    <input
-                        onChange={handleTodoChange}
-                        id={index}
-                        name='todo'
-                        className='note-todo'
-                        value={todo.text}
-                        placeholder="Enter todo"
-                    />
+                    <div className="todo-container">
+                        <input
+                            onChange={handleTodoChange}
+                            id={index}
+                            name='todo'
+                            className='note-todo'
+                            value={todo.text}
+                            placeholder="Enter todo"
+                        />
+                        <button onClick={() => onRemoveTodo(todo.id)}>x</button>
+                    </div>
                 )}
-                <button onClick={onAddEmptyTodo}>+</button>
+                <button className="add-todo" onClick={onAddEmptyTodo}><i className="fa-solid fa-plus"></i></button>
             </Fragment>
             }
             <div className="actions-container">
-            <i className="fa-solid fa-palette" onClick={onOpenColorPicker} title="Background options"></i>
-            <i className={`fa-solid fa-box-archive ${note.isArchived ? 'active' : ''}`} onClick={toggleForArchive} title="Archive"></i>
-            <button type="submit">{!note.isArchived ? 'Save': 'Save to archive'}</button>
+                <i className="fa-solid fa-palette" onClick={onOpenColorPicker} title="Background options"></i>
+                <i className={`fa-solid fa-box-archive ${note.isArchived ? 'active' : ''}`} onClick={toggleForArchive} title="Archive"></i>
+                <button type="submit">{!note.isArchived ? 'Save' : 'Save to archive'}</button>
             </div>
-            {colorPicker && <ColorPicker note={note} colorPicker={colorPicker} setColorPicker={setColorPicker} onSaveNote={setNote}/>}
+            {colorPicker && <ColorPicker note={note} colorPicker={colorPicker} setColorPicker={setColorPicker} onSaveNote={setNote} />}
         </form>
 
     )
