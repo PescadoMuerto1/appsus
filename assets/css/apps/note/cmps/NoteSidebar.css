@@ -1,9 +1,10 @@
-.main-notes .note-sidebar{
+.main-notes .note-sidebar {
     display: grid;
     grid-template-rows: repeat(2, 3rem);
     background-color: var(--bg-color);
     width: 17.5rem;
     padding-block-start: 0.5rem;
+    transition: width 0.4s;
 }
 
 .main-notes .note-sidebar.not-extended {
@@ -14,8 +15,8 @@
     padding-block-start: 0.5rem;
 }
 
-.main-notes .note-sidebar.not-extended span{
-    display:none;
+.main-notes .note-sidebar.not-extended span {
+    display: none;
 }
 
 .main-notes .note-sidebar a {
