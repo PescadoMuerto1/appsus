@@ -1,13 +1,23 @@
 const { useState, useEffect, Fragment } = React
 const { useNavigate, useParams } = ReactRouter
+const { useSearchParams } = ReactRouterDOM
+
 
 import { mailService } from "../services/mail.service.js"
-import { MailSideBar } from "../cmps/MailSideBar.jsx"
 
 export function MailCompose() {
     const [mail, setMail] = useState(mailService.getEmptyMail())
+    const [searchParams, setSearchParams] = useSearchParams()
     const navigate = useNavigate()
 
+
+    useEffect(() => {
+        if (searchParams.size) {
+            const subject = searchParams.get('subject') || ''
+            const body = searchParams.get('content') || ''
+            setMail(prevMail => ({ ...prevMail, subject, body }))
+        }
+    }, [])
 
     function handleChange({ target }) {
         let { value, name: field, type } = target
@@ -16,9 +26,9 @@ export function MailCompose() {
         setMail(prevMail => ({ ...prevMail, [field]: value }))
     }
 
-    function onSend(ev) {
+    function onSend(ev, isSent) {
         ev.preventDefault()
-        mailService.save({ ...mail, sentAt: Date.now() })
+        mailService.save({ ...mail, sentAt: isSent ? Date.now() : null })
             .then(mail => {
                 console.log('mail:', mail)
                 navigate(`/mail/list`)
@@ -26,14 +36,20 @@ export function MailCompose() {
             .catch(err => console.log('err:', err))
     }
 
+    function onSaveAsNote(ev) {
+        ev.preventDefault()
+        navigate(`/note/edit?subject=${mail.subject}&content=${mail.body}`)
+    }
+
     return <Fragment>
         <section>
-            <form className="grid" onSubmit={ onSend }>
+            <form className="grid">
                 <input type="email" name="to" id="to" placeholder="To" value={ mail.value } onChange={ handleChange } />
                 <input type="text" name="subject" id="subject" placeholder="Subject" value={ mail.subject } onChange={ handleChange } />
                 <textarea id="body" name="body" rows="5" cols="33" placeholder="Content" value={ mail.body } onChange={ handleChange } />
-                <button>Send</button>
-                <button>Save for later</button>
+                <button onClick={ (ev) => onSend(ev, true) }>Send</button>
+                <button onClick={ (ev) => onSend(ev, false) }>Save for later</button>
+                <button onClick={ onSaveAsNote } >Save as note</button>
             </form>
         </section>
     </Fragment>

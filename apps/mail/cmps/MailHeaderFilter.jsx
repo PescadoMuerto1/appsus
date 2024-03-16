@@ -4,7 +4,7 @@ export function MailHeaderFilter({ filterBy, onSetFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
     useEffect(() => {
-        onSetFilter(filterByToEdit)
+        onSetFilter({ txt: filterByToEdit.txt })
     }, [filterByToEdit])
 
     function handleChange({ target }) {

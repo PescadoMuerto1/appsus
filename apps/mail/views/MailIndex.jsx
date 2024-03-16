@@ -2,21 +2,19 @@ const { useState, useEffect, useRef, Fragment } = React
 const { useNavigate } = ReactRouter
 const { useSearchParams, Outlet } = ReactRouterDOM
 
-import { MailFilter } from "../cmps/MailFilter.jsx";
 import { MailHeader } from "../cmps/MailHeader.jsx";
-import { MailList } from "../cmps/MailList.jsx";
 import { MailSideBar } from "../cmps/MailSideBar.jsx";
 import { mailService } from "../services/mail.service.js";
 
 export function MailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
-
+    console.log('searchParams:', searchParams)
     const [mails, setMails] = useState(null)
     const [unreadCount, setUnreadCount] = useState(null)
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromParams(searchParams))
     const [sortBy, setSortBy] = useState(mailService.getSortFromParams(searchParams))
     const [isSideBar, setIsSideBar] = useState(true)
-
+    window.sp = searchParams
     const navigate = useNavigate()
 
     useEffect(()=>{
