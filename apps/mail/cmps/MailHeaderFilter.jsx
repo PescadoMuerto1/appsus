@@ -1,32 +1,25 @@
-const { useState, useEffect } = React
+const { useState } = React
 
 export function MailHeaderFilter({ filterBy, onSetFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
-    useEffect(() => {
-        onSetFilter({ txt: filterByToEdit.txt })
-    }, [filterByToEdit])
-
     function handleChange({ target }) {
-        // console.log('target', target)
-
-        let { value, name: field } = target
+        const { value, name: field } = target
 
         setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, [field]: value }))
-        // onSetFilter(filterByToEdit)
+        onSetFilter({ [field]: value })
     }
 
     return (
         <div className="search-container">
-            <input type="text"
+            <input type="search"
                 className="search"
                 placeholder="Search"
-                name="text"
+                name="txt"
                 onChange={ handleChange }
                 value={ filterByToEdit.text }
                 title="Search"
             />
-            <button className="hidden">x</button>
         </div>
     )
 }

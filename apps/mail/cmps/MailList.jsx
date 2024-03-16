@@ -5,7 +5,7 @@ import { MailPreview } from "./MailPreview.jsx";
 export function MailList() {
     const [mails, setMails, onDeleteMail, onMailSelect, onToggleProperty] = useOutletContext()
     if (!mails) return <div><img src="assets/img/planeloader.gif" /></div>
-    return <section className="mail-list grid">
+    return <section className="mail-list flex column">
         { mails.map(mail =>
             <MailPreview mail={ mail } key={ mail.id }
                 onDeleteMail={ onDeleteMail }

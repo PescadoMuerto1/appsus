@@ -1,6 +1,7 @@
 .mail-list {
-    
-    width: calc(100% - 1rem);
+    grid-area: mails;
+    width: 100%;
+    background-color: #fff;
 }
 
 
