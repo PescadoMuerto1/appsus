@@ -123,7 +123,7 @@ export function MailIndex() {
 
     return <Fragment>
         <MailHeader filterBy={ filterBy } onSetFilter={ onSetFilter } setIsSideBar={ setIsSideBar } />
-        <section className="mail-index full grid main-layout">
+        <section className={ `mail-index full grid main-layout ${isSideBar ? 'menu-open' : ''}` }>
             <MailSideBar
                 unreadCount={ mails ? unreadCount : '' } isSideBar={ isSideBar } />
             <Outlet context={ [mails, setMails, onDeleteMail, onMailSelect, onToggleProperty, filterBy, onSetFilter, sortBy, setSortBy, setUnreadCount] } />

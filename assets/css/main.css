@@ -51,6 +51,7 @@
 @import './apps/mail/cmps/MailFilter.css';
 @import './apps/mail/cmps/MailDetails.css';
 
+@import './apps/mail/views/MailMQ.css';
 /******** ------ ********/
 
 @import './../../lib/animate.css'

@@ -7,7 +7,7 @@
     padding: 0.5rem;
 }
 
-.mail-header *{
+.mail-header>i, .mail-header>button>i{
     color: var(--mail-main-color);
 }
 
