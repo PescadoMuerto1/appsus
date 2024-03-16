@@ -127,7 +127,6 @@ export function NoteIndex() {
             }
         }
         reader.readAsDataURL(ev.target.files[0])
-
     }
 
     function onSelectNote(note) {
@@ -149,8 +148,22 @@ export function NoteIndex() {
 
                 {notes.length &&
                     <div className='content-layout'>
-                        <NoteList notes={notes.filter(note => note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
-                        <NoteList notes={notes.filter(note => !note.isPinned)} onRemoveNote={onRemoveNote} onArchiveNote={onArchiveNote} onPinNote={onPinNote} onSelectNote={onSelectNote} onSaveNote={onSaveNote} />
+
+                        {notes.filter(note => note.isPinned).length > 0 && <NoteList
+                            notes={notes.filter(note => note.isPinned)}
+                            onRemoveNote={onRemoveNote}
+                            onArchiveNote={onArchiveNote}
+                            onPinNote={onPinNote}
+                            onSelectNote={onSelectNote}
+                            onSaveNote={onSaveNote} />}
+
+                        {notes.filter(note => !note.isPinned).length > 0 && <NoteList
+                            notes={notes.filter(note => !note.isPinned)}
+                            onRemoveNote={onRemoveNote}
+                            onArchiveNote={onArchiveNote}
+                            onPinNote={onPinNote}
+                            onSelectNote={onSelectNote}
+                            onSaveNote={onSaveNote} />}
                     </div>}
                 {selectedNote && <EditNoteModal selectedNote={selectedNote} onSaveNote={onSaveNote} setSelectedNote={setSelectedNote} />
                 }
