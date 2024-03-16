@@ -1,6 +1,6 @@
 .notes-list-layout {
-    columns: 5 16.25rem;
-    column-gap: 1rem;
+    columns: 15rem;
+    column-gap: 0.6rem;
 }
 
 .note-layout {
@@ -9,7 +9,7 @@
 
 .main-notes-layout {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: max-content 1fr;
     grid-column: 1 /-1;
 }
 
@@ -24,3 +24,40 @@
 .main-notes-layout .sidebar {
     grid-column: 1;
 }
+
+.note-content .content-layout {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: minmax(1rem, 1fr) 77.4rem minmax(1rem, 1fr);
+}
+
+.note-content .content-layout >* {
+    grid-column: 2;
+}
+
+@media (min-width: 1550px) {
+    .note-content .content-layout {
+        grid-template-columns: minmax(1rem, 1fr) 77.4rem minmax(1rem, 1fr);
+    }    
+}
+
+@media (max-width: 1550px) {
+    .note-content .content-layout {
+        grid-template-columns: minmax(1rem, 1fr) 62.4rem minmax(1rem, 1fr);
+    }  
+ 
+}
+
+@media (max-width: 1310px) {
+    .note-content .content-layout {
+        grid-template-columns: minmax(3rem, 1fr) 47.4rem minmax(3rem, 1fr);
+    }  
+   
+}
+
+/* @media (max-width: 1310px) {
+    .note-content .content-layout {
+        grid-template-columns: minmax(3rem, 1fr) 32.4rem minmax(3rem, 1fr);
+    }  
+   
+} */

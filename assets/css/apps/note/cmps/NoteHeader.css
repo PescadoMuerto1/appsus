@@ -34,13 +34,13 @@
 
 .note-header .search-container {
     position: relative;
-    width: 50vw;
+    width: 50%;
     height: 100%;
     justify-self: center;
 }
 
 .note-header .search {
-    width: 50vw;
+    width: 100%;
     height: 100%;
     background-color: var(--note-search-bcg);
     border: none;
