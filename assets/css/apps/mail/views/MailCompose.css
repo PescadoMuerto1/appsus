@@ -19,6 +19,10 @@ input, textarea{
     transition: box-shadow 300ms;
 }
 
+textarea{
+    height: 60vh;
+}
+
 input:focus, textarea:focus{
     border: none;
     outline: none;

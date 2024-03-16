@@ -4,7 +4,6 @@ const { Link, useLocation } = ReactRouterDOM
 export function MailHeaderFilter({ filterBy, onSetFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
     const location = useLocation()
-    console.log('location.pathname:', location.pathname)
 
     function handleChange({ target }) {
         const { value, name: field } = target
