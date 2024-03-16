@@ -5,16 +5,13 @@
 
 .main-layout {
     grid-template-columns: var(--sideBarWidth) minmax(80vw, 1fr) minmax(5px, 3rem);
+    transition: grid-template-columns 300ms;
 
 }
 
-.main-layout{
-        transition: grid-template-columns 300ms;
 
-}
-
-.app.main-layout{
-    grid-template-rows: 5.5rem calc(100vh - 5.5rem);
+.app.main-layout {
+    grid-template-rows: 4rem calc(100vh - 4rem);
 }
 
 
@@ -23,10 +20,10 @@
 }
 
 .main-content {
-    grid-template-areas:
+    /* grid-template-areas:
         ".       .       ."
         "sidebar content ."
-    ;
+    ; */
+    grid-template-rows: 4rem calc(100vh - 4rem);
     height: 100%;
-    padding-bottom: 1rem;
 }

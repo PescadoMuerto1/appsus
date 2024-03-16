@@ -8,18 +8,16 @@ import { mailService } from "../services/mail.service.js";
 
 export function MailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
-    console.log('searchParams:', searchParams)
     const [mails, setMails] = useState(null)
     const [unreadCount, setUnreadCount] = useState(null)
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromParams(searchParams))
     const [sortBy, setSortBy] = useState(mailService.getSortFromParams(searchParams))
     const [isSideBar, setIsSideBar] = useState(true)
-    window.sp = searchParams
     const navigate = useNavigate()
 
-    useEffect(()=>{
-        document.documentElement.style.setProperty('--sideBarWidth', isSideBar ? '16rem' :'5rem');
-    },[isSideBar])
+    useEffect(() => {
+        document.documentElement.style.setProperty('--sideBarWidth', isSideBar ? '16rem' : '5rem');
+    }, [isSideBar])
 
     useEffect(() => {
         const filter = mailService.getFilterFromParams(searchParams)
@@ -125,9 +123,9 @@ export function MailIndex() {
 
     return <Fragment>
         <MailHeader filterBy={ filterBy } onSetFilter={ onSetFilter } setIsSideBar={ setIsSideBar } />
-        <MailSideBar
-            unreadCount={ mails ? unreadCount : '' } isSideBar={ isSideBar } />
-        <section className="mail-index">
+        <section className="mail-index full grid main-layout">
+            <MailSideBar
+                unreadCount={ mails ? unreadCount : '' } isSideBar={ isSideBar } />
             <Outlet context={ [mails, setMails, onDeleteMail, onMailSelect, onToggleProperty, filterBy, onSetFilter, sortBy, setSortBy, setUnreadCount] } />
         </section >
     </Fragment>

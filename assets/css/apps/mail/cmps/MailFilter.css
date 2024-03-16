@@ -1,4 +1,5 @@
 .mail-filter{
+    grid-area: filter;
     background-color: #fff;
     border-start-start-radius: 1rem;
     border-start-end-radius: 1rem;
